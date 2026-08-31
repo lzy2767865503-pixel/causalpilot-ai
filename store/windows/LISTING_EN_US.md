@@ -6,7 +6,7 @@
 **Store AppX display name:** CausalPilot AI by LAI ZEYU
 **Version:** 0.1.0  
 **Developed by:** LAI ZEYU (来泽宇)  
-**Status:** Saved in Partner Center and shown as `Complete` on 2026-09-01. Four exact Store-candidate screenshots are uploaded and the package is validated. Certification has not been submitted, and the product is not publicly available in Microsoft Store.
+**Status:** Saved in Partner Center and shown as `Complete` on 2026-09-01. Four exact Store-candidate screenshots are uploaded, the package is validated, and submission `1152921505701778491` is `In certification`. The product is not yet publicly available in Microsoft Store.
 
 ## Product name
 
@@ -125,5 +125,5 @@ These choices were saved in Partner Center on 2026-09-01. They do not prove cert
 - English (United States) listing: `Complete`
 - Uploaded screenshots: 4 exact Store-candidate Windows images
 - Package: validated
-- Submission for certification: not sent
+- Submission for certification: sent; current state `In certification`
 - Microsoft Store availability: not achieved

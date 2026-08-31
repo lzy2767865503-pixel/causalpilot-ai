@@ -5,7 +5,7 @@
 
 **Store AppX display name:** CausalPilot AI by LAI ZEYU
 **Author shown in the product:** LAI ZEYU (来泽宇)  
-**Status:** Four exact Store-candidate Windows screenshots were uploaded to the English listing on 2026-09-01, and the listing shows `Complete`. This does not establish certification or public Store availability.
+**Status:** Four exact Store-candidate Windows screenshots were uploaded to the English listing on 2026-09-01, the listing shows `Complete`, and submission `1152921505701778491` is `In certification`. This does not establish a certification pass or public Store availability.
 
 ## Capture specification
 
@@ -103,7 +103,7 @@ For the English listing, use the English screenshots above. If the optional Simp
 
 - [x] Four screenshots uploaded to English (United States)
 - [x] English listing reports `Complete`
-- [ ] Submission sent for certification
+- [x] Submission sent for certification; current state `In certification`
 - [ ] Public product-detail page and acquisition independently verified
 
 ## Logo assets

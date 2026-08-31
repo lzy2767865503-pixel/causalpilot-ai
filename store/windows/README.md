@@ -3,9 +3,9 @@
 **Product author and accountable owner:** LAI ZEYU (来泽宇)  
 **Prepared for:** Reserved Store product `CausalPilot AI by LAI ZEYU`; public-preview installed product `CausalPilot AI` 0.1.0, Windows x64
 **Primary listing language:** English (United States)  
-**Kit status:** Public source and GitHub preview verified; Store name reserved; identity-bound AppX built, inspected, uploaded, and server-validated; all current submission sections complete; certification submission and Microsoft Store availability remain gated
+**Kit status:** Public source and GitHub preview verified; Store name reserved; identity-bound AppX built, inspected, uploaded, and server-validated; submission `1152921505701778491` is `In certification`; certification result and Microsoft Store availability remain gated
 
-This directory contains evidence-bounded Microsoft Store copy and submission guidance for the Windows edition of CausalPilot AI. A Windows x64 preview is publicly available on GitHub. The identity-bound Store AppX has been uploaded to Partner Center and its server status is `Validated`; the product remains `In draft` and has not been submitted for certification, certified, published, or proven publicly acquirable through Microsoft Store.
+This directory contains evidence-bounded Microsoft Store copy and submission guidance for the Windows edition of CausalPilot AI. A Windows x64 preview is publicly available on GitHub. The identity-bound Store AppX has been uploaded to Partner Center, its server status is `Validated`, and submission `1152921505701778491` is `In certification`. The product has not yet passed certification, been published, or been proven publicly acquirable through Microsoft Store.
 
 ## Intended Store route
 
@@ -29,6 +29,7 @@ Do not upload a locally generated placeholder-identity package. Do not call an u
 - `SUBMISSION_CHECKLIST.md` — go/no-go gates from package identity through public-listing verification.
 - `assets/` — Store logo candidates. Four 1366 × 768 screenshots captured from the tested packaged payload corresponding to the AppX candidate have been uploaded to the English listing; they are not evidence of an installed Store AppX.
 - `../../evidence/releases/0.1.0/windows/v0.1.0-store.1/partner-center-draft-record.md` — frozen build, AppX inspection, screenshots, Partner Center `In draft` state, and remaining-gate evidence.
+- `../../evidence/releases/0.1.0/windows/v0.1.0-store.1/partner-center-certification-record.md` — accepted submission, `In certification` timeline, portal capture, and post-submission evidence boundary.
 
 ## Paste readiness
 
@@ -49,7 +50,7 @@ The public source implements an offline-first Electron workflow backed by a dete
 
 The immutable Store-candidate tag `v0.1.0-store.1` resolves to commit `3a46c94c68fa30c4a324aaad6f60f6fceb2dfe14`. [GitHub Actions run `33415607188`, job `99565393818`](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33415607188/job/99565393818) built and inspected `CausalPilot-AI-0.1.0-windows-x64.appx`. The exact AppX is 175,766,948 bytes with SHA-256 `3b5271b822e0a05663b8c7bb802f47914dac61b5f902b52cc02511b661744825`. The run verified the exact Partner Center identity, `Windows.Desktop` x64 manifest, version `1.0.0.0`, required branded assets, minimal `runFullTrust` capability, nested notices/authorship, source-map exclusion, sensitive-file/token-pattern scan, AMD64 PE structure and security flags, byte parity between the AppX core payload and the tested unpacked build, packaged local-engine E2E/export behavior, and four 1366 × 768 screenshots. Partner Center then accepted this package and reports server state `Validated`.
 
-This remains hosted-runner package and unpacked-payload evidence, not an installation test of the AppX. Windows App Certification Kit, Microsoft Defender/SmartScreen, AppX install/uninstall, real chooser interaction, and clean consumer Windows 10 22H2 and Windows 11 24H2 testing remain open. Pricing and availability, Properties, IARC age ratings, Submission options, Testing notes, Packages, and the English Store listing all show `Complete`; four screenshots are uploaded; automatic publication after certification is selected. The product nevertheless remains `In draft`: certification has not been submitted, and Microsoft Store availability is not proven.
+This remains hosted-runner package and unpacked-payload evidence, not an installation test of the AppX. Windows App Certification Kit, Microsoft Defender/SmartScreen, AppX install/uninstall, real chooser interaction, and clean consumer Windows 10 22H2 and Windows 11 24H2 testing remain open. Pricing and availability, Properties, IARC age ratings, Submission options, Testing notes, Packages, and the English Store listing all showed `Complete`; four screenshots were uploaded; automatic publication after certification was selected. Partner Center accepted the submission on 2026-09-01 and now reports `In certification`, with Submission complete and Pre-processing underway at the first observation. A certification pass and Microsoft Store availability are not yet proven.
 
 The product name contains “AI,” but version 0.1.0 does not use a generative-AI model at runtime. It has no account, cloud analysis, advertising, telemetry integration, or external AI call. Store metadata must preserve that distinction.
 
@@ -70,7 +71,6 @@ The remaining `PENDING_` entries below are deliberate hard gates, not publishabl
 
 - `PENDING_APPX_INSTALL_AND_CONSUMER_WINDOWS_QA`
 - `PENDING_WACK_DEFENDER_SMARTSCREEN`
-- `PENDING_CERTIFICATION_SUBMISSION`
 - `PENDING_STORE_CERTIFICATION`
 - `PENDING_STORE_AVAILABILITY`
 

@@ -5,7 +5,7 @@
 
 **Store AppX display name:** CausalPilot AI by LAI ZEYU
 **Accountable owner:** LAI ZEYU (来泽宇)  
-**Status:** Properties and age-rating questionnaire saved in Partner Center on 2026-09-01; package validated; certification not submitted
+**Status:** Properties and age-rating questionnaire saved in Partner Center on 2026-09-01; package validated; submission `1152921505701778491` is `In certification`
 
 ## Identity and device family
 
@@ -15,7 +15,7 @@
 - Publisher: `CN=A5F91D0A-30C6-48EE-944F-B767FA872BE8`
 - Publisher display name: `LAI ZEYU`
 - Package family name: `LAIZEYU.CausalPilotAIbyLAIZEYU_jex0hdpdrk7qw`
-- Partner Center product state: `In draft`
+- Partner Center product state: `In certification`
 - Validated device family: Windows.Desktop
 - Validated architecture: x64 only
 - Validated minimum OS: Windows 10 version 1809 (`10.0.17763.0`)

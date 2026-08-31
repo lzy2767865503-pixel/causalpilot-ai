@@ -2,7 +2,7 @@
 
 **Package-specific draft for Partner Center; keep the note body below 2,000 characters.**
 
-**Current portal state:** package validated; certification not submitted
+**Current portal state:** package validated; submission `1152921505701778491` is `In certification`
 
 The Store listing is “CausalPilot AI by LAI ZEYU.” The in-app About page identifies the product as “CausalPilot AI.” Version 0.1.0 is an English-language, offline-first workbench for declared randomized two-arm experiments. Analysis requires no account, credential, payment, advertising, cloud service, or network connection after installation.
 

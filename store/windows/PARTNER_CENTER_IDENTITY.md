@@ -39,7 +39,7 @@ GitHub Actions run `33415607188` produced and inspected
 `CausalPilot-AI-0.1.0-windows-x64.appx`, 175,766,948 bytes, SHA-256
 `3b5271b822e0a05663b8c7bb802f47914dac61b5f902b52cc02511b661744825`.
 The generated manifest matches the identity table above. Partner Center accepted
-this exact package and reports `Validated`; the submission remains `In draft`
-and has not been sent for certification.
+this exact package and reports `Validated`; submission `1152921505701778491`
+was sent on 2026-09-01 and is now `In certification`.
 
 Copyright © 2026 LAI ZEYU (来泽宇).

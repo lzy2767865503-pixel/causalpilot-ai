@@ -14,7 +14,7 @@
 - [x] Package identity values provided to the Windows build without transcription changes and verified in the generated manifest
 - [x] CausalPilot-specific Store ID `9NXZ3MJFFGFG` and PFN `LAIZEYU.CausalPilotAIbyLAIZEYU_jex0hdpdrk7qw` recorded; no identifier from another Store product used
 
-Current state: the product is `In draft`; reservation, identity capture, build binding, and exact manifest inspection are complete. The values are preserved in `PARTNER_CENTER_IDENTITY.md` and match the uploaded, server-validated AppX. This does not establish certification or publication.
+Current state: submission `1152921505701778491` is `In certification`; reservation, identity capture, build binding, and exact manifest inspection are complete. The values are preserved in `PARTNER_CENTER_IDENTITY.md` and match the uploaded, server-validated AppX. This does not establish a certification pass or publication.
 
 ## 2. Source and licence
 
@@ -121,10 +121,10 @@ Current state: Pricing and availability, Properties, IARC age ratings, Submissio
 - [x] Reviewer submission confirmed to contain no real personal/client data or credentials
 - [ ] Legal declarations answered by the account owner
 - [x] Automatic publishing after certification selected
-- [ ] Submission sent for certification
+- [x] Submission sent for certification on 2026-09-01; Partner Center reports `In certification`
 - [x] Draft submission ID `1152921505701778491`, record date, and Partner Center overview screenshot preserved
 
-Current state: **In draft — package uploaded and server-validated; certification not submitted.** Automatic publishing is only a future action after successful certification. Do not describe this state as submitted, in certification, certified, published, or live.
+Current state: **In certification — Submission complete; Pre-processing in progress at the first post-submit observation.** Automatic publishing remains scheduled only after a successful certification result. Do not describe this state as certified, published, or live.
 
 ## 8. Publication verification
 
