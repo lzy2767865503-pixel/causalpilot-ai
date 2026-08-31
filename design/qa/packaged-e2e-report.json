@@ -1,0 +1,48 @@
+{
+  "testedAt": "2026-08-31T11:14:07.696Z",
+  "executablePath": "/Volumes/CausalPilot AI 0.1.0-arm64/CausalPilot AI.app/Contents/MacOS/CausalPilot AI",
+  "launchTimeoutMs": 120000,
+  "application": {
+    "name": "CausalPilot AI",
+    "author": "LAI ZEYU (来泽宇)",
+    "description": "Offline-first experiment analysis and evidence export with a deterministic local engine.",
+    "version": "0.1.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "packaged": true,
+    "processingMode": "offline-local-engine"
+  },
+  "sourceFile": "checkout_incentive_synthetic_v1.csv",
+  "mappingRows": 4,
+  "provenance": "Local analysis",
+  "metrics": [
+    "Estimated lift",
+    "+2.6 pp",
+    "95% CI",
+    "+1.6 to +3.5 pp",
+    "Business threshold",
+    "+1.5 pp",
+    "Analyzed units",
+    "16,000",
+    "8,000 control · 8,000 treatment"
+  ],
+  "engineVersion": "causalpilot-engine 0.1.0",
+  "datasetHash": "47ab1a639eecfbb1630063298d6d3b447bac5123e87d6e9653bdc283bf9de244",
+  "decision": "Did the assigned treatment create incremental checkout completed?",
+  "authorMentions": 3,
+  "horizontalOverflow": false,
+  "consoleErrors": [],
+  "evidenceExport": {
+    "folder": "checkout_incentive_synthetic_v1-evidence-2026-08-31T11-14-07-477Z",
+    "files": [
+      "result-bundle.json",
+      "evidence-report.html"
+    ],
+    "schema": "causalpilot.evidence.v1",
+    "author": "LAI ZEYU (来泽宇)",
+    "datasetHash": "47ab1a639eecfbb1630063298d6d3b447bac5123e87d6e9653bdc283bf9de244",
+    "containsRawRows": false,
+    "htmlCreditsAuthor": true
+  },
+  "testBoundary": "The native chooser response was stubbed only inside this disposable test process; production tokenization, validation, packaged sidecar execution, and result rendering were exercised."
+}

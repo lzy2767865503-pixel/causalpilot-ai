@@ -1,0 +1,27 @@
+{
+  "assignment_counts": {
+    "control": 8000,
+    "treatment": 8000
+  },
+  "baseline_rate": 0.09625,
+  "columns": [
+    "unit_id",
+    "treatment",
+    "checkout_completed",
+    "pre_purchase_score"
+  ],
+  "configured_direct_probability_effect": 0.021,
+  "contains_personal_data": false,
+  "expected_treatment_fraction": 0.5,
+  "generated_success_counts": {
+    "control": 744,
+    "treatment": 949
+  },
+  "generator": "causalpilot_checkout_incentive_v1",
+  "output_path": "/Users/lai/Documents/ChatGPT/causa/public/samples/checkout_incentive_synthetic_v1.csv",
+  "project_owner": "LAI ZEYU (来泽宇)",
+  "seed": 20260831,
+  "sha256": "47ab1a639eecfbb1630063298d6d3b447bac5123e87d6e9653bdc283bf9de244",
+  "synthetic_data": true,
+  "units": 16000
+}

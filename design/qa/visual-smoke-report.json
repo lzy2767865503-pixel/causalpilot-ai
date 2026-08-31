@@ -1,0 +1,30 @@
+{
+  "capturedAt": "2026-08-31T11:02:24.842Z",
+  "browser": "Google Chrome via playwright-core",
+  "appUrl": "http://127.0.0.1:5173/",
+  "desktopGeometry": {
+    "viewport": [
+      1504,
+      1046
+    ],
+    "body": [
+      1504,
+      1046
+    ],
+    "horizontalOverflow": false
+  },
+  "mobileGeometry": {
+    "viewport": [
+      390,
+      844
+    ],
+    "body": [
+      390,
+      1956
+    ],
+    "horizontalOverflow": false,
+    "mobileMenuVisible": true
+  },
+  "consoleErrors": [],
+  "author": "LAI ZEYU (来泽宇)"
+}

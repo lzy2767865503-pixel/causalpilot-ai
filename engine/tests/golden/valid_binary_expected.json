@@ -1,0 +1,18 @@
+{
+  "assignment_counts": {
+    "control": 10,
+    "treatment": 10
+  },
+  "business_status": "inconclusive",
+  "claim_status": "conditional_randomized_itt",
+  "confidence_interval_high": 0.6718241964405526,
+  "confidence_interval_low": -0.028820456268342787,
+  "control_rate": 0.3,
+  "decision_estimate_source": "raw",
+  "decision_readiness": "share_with_caveats",
+  "estimate": 0.39999999999999997,
+  "method": "risk_difference_newcombe_wilson_ci_pooled_z",
+  "p_value_two_sided": 0.07363827012030268,
+  "status": "ok",
+  "treatment_rate": 0.7
+}

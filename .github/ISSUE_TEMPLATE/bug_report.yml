@@ -1,0 +1,67 @@
+name: Bug report
+description: Report a reproducible defect without sharing personal or confidential data.
+title: "[Bug]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Do not attach customer, employee, candidate, or other personal data. For vulnerabilities, follow SECURITY.md instead of opening a public report.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: State the app version and, for source builds, the commit hash.
+      placeholder: "0.1.0 or commit SHA"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows 11 x64
+        - Windows 10 x64
+        - macOS Apple silicon
+        - Browser-only development surface
+        - Other source-build environment
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the defect and its impact.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Use synthetic or redacted data only.
+      placeholder: |
+        1. Open ...
+        2. Select ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Sanitized diagnostics
+      description: Add logs, screenshots, hashes, or fixture details only after removing secrets, personal data, and local paths.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Data-safety confirmation
+      options:
+        - label: I removed credentials, personal data, confidential data, and identifying local paths.
+          required: true
+        - label: I understand that a bug report is not evidence that a release, statistical method, or external impact has been validated.
+          required: true

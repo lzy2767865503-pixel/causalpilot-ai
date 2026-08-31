@@ -1,0 +1,36 @@
+node_modules/
+dist/
+dist-electron/
+release/
+.venv/
+engine/.venv/
+engine/dist/
+engine/build/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.log
+.DS_Store
+playwright-report/
+test-results/
+coverage/
+work/
+build/icon.iconset/
+*.env
+*.env.*
+!*.env.example
+
+# Signing and publishing secrets must never enter source control.
+*.p12
+*.pfx
+*.pem
+*.key
+*.snk
+*.mobileprovision
+store/private/
+
+# Platform-local build state.
+.vs/
+Thumbs.db
+AppPackages/
+*.msixupload

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "causalpilot-engine"
+version = "0.1.0"
+description = "Deterministic offline experiment analysis engine for CausalPilot AI"
+requires-python = ">=3.9"
+authors = [
+  { name = "LAI ZEYU (来泽宇)" },
+]
+license = { text = "MIT" }
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7,<9"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["causalpilot_engine*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

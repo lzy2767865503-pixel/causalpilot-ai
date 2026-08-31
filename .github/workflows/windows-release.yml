@@ -1,0 +1,136 @@
+name: Windows x64 package and draft release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - v0.1.0
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-verify:
+    name: Build and verify Windows x64
+    runs-on: windows-2022
+    timeout-minutes: 60
+    env:
+      CAUSALPILOT_PYTHON_EXECUTABLE: python
+      CAUSALPILOT_APP_EXECUTABLE: ${{ github.workspace }}\release\win-unpacked\CausalPilot AI.exe
+      CAUSALPILOT_LAUNCH_TIMEOUT_MS: "120000"
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: utf-8
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: engine/requirements-build.txt
+      - name: Install locked JavaScript dependencies
+        run: npm ci
+      - name: Install Python build and test dependencies
+        run: python -m pip install -r engine/requirements-build.txt
+      - name: Run renderer and path-contract tests
+        run: npm test
+      - name: Run deterministic engine tests
+        run: npm run test:engine
+      - name: Compile application source
+        run: npm run build
+      - name: Create final NSIS, ZIP, and unpacked Windows distributions
+        run: npm run package:win
+      - name: Exercise the final sidecar with Unicode path and frozen hash
+        run: npm run test:sidecar
+      - name: Exercise packaged import, engine, result, and evidence export
+        run: npm run qa:packaged
+      - name: Capture four packaged Windows Store screenshots
+        run: npm run qa:windows-store-captures
+      - name: Verify expected files and write checksums
+        shell: pwsh
+        run: |
+          $artifacts = @(
+            "release/CausalPilot-AI-0.1.0-windows-x64-setup.exe",
+            "release/CausalPilot-AI-0.1.0-windows-x64.zip"
+          )
+          foreach ($artifact in $artifacts) {
+            if (-not (Test-Path -LiteralPath $artifact -PathType Leaf)) {
+              throw "Missing expected Windows artifact: $artifact"
+            }
+          }
+          $checksumLines = foreach ($artifact in $artifacts) {
+            $hash = (Get-FileHash -LiteralPath $artifact -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $([System.IO.Path]::GetFileName($artifact))"
+          }
+          Set-Content -LiteralPath "release/SHA256SUMS-windows.txt" -Value $checksumLines -Encoding utf8NoBOM
+          Get-Content -LiteralPath "release/SHA256SUMS-windows.txt"
+      - name: Upload verified distributions
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: CausalPilot-AI-0.1.0-windows-x64
+          path: |
+            release/CausalPilot-AI-0.1.0-windows-x64-setup.exe
+            release/CausalPilot-AI-0.1.0-windows-x64.zip
+            release/SHA256SUMS-windows.txt
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload Windows validation evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: CausalPilot-AI-0.1.0-windows-x64-validation
+          path: |
+            release/win-unpacked/**
+            design/qa/packaged-e2e-report.json
+            design/qa/packaged-local-engine-result.png
+            design/qa/windows-store/*.png
+            design/qa/windows-store/windows-store-capture-report.json
+          if-no-files-found: error
+          retention-days: 30
+
+  draft-github-release:
+    name: Create or update draft GitHub release
+    needs: build-and-verify
+    if: github.event_name == 'push' && github.ref == 'refs/tags/v0.1.0'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out release notes
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Download verified distributions
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: CausalPilot-AI-0.1.0-windows-x64
+          path: release-artifacts
+      - name: Create a draft release and attach verified files
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            if [[ "$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft)" != "true" ]]; then
+              echo "Refusing to overwrite a published release." >&2
+              exit 1
+            fi
+          else
+            gh release create "$RELEASE_TAG" \
+              --draft \
+              --title "CausalPilot AI 0.1.0 — Windows x64 preview" \
+              --notes-file .github/RELEASE_NOTES_v0.1.0.md
+          fi
+          gh release upload "$RELEASE_TAG" \
+            release-artifacts/CausalPilot-AI-0.1.0-windows-x64-setup.exe \
+            release-artifacts/CausalPilot-AI-0.1.0-windows-x64.zip \
+            release-artifacts/SHA256SUMS-windows.txt \
+            --clobber

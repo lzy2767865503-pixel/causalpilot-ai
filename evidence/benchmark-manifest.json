@@ -1,0 +1,480 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_version": "causalpilot-benchmark-v0.1-planning",
+  "project": "CausalPilot AI",
+  "created_on": "2026-08-31",
+  "status": "PLANNED_TARGETS_WITH_MEASURED_DEVELOPMENT_RUN_FORMAL_HOLDOUT_NOT_RUN",
+  "status_notice": "Every threshold under planned_acceptance_targets remains a planned acceptance target. A measured development run is recorded below, but it is not a formal holdout result and must not be cited as proof that a planned target was achieved.",
+  "v1_scope": {
+    "primary_domain": "Marketing experiments and intervention evaluation",
+    "secondary_domain": "Aggregate HR programme and team-level intervention evaluation",
+    "supported_core_methods_planned": [
+      "randomized two-group tests for binary outcomes",
+      "randomized two-group tests for continuous outcomes",
+      "regression adjustment or CUPED using pre-treatment variables",
+      "difference-in-differences with explicit assumption checks"
+    ],
+    "out_of_scope_for_v1": [
+      "individual hiring, firing, promotion, compensation, or performance decisions",
+      "candidate or employee ranking",
+      "personality or protected-attribute inference",
+      "automatic causal claims when identification assumptions are not supported",
+      "production claims for advanced methods that are not listed as supported core methods"
+    ]
+  },
+  "evaluation_principles": [
+    "Freeze scenario definitions and thresholds before the formal holdout run.",
+    "Use known data-generating truth for simulation benchmarks.",
+    "Keep development results separate from formal holdout evidence.",
+    "Report every family separately; do not use an overall average to hide a weak or unsafe family.",
+    "Record failures and inconclusive cases instead of selecting only favourable outputs.",
+    "Store a code version, manifest hash, random seed, environment record, and result artifact for every formal run."
+  ],
+  "split_policy": {
+    "unit": "replication seed within each scenario family",
+    "development_split": {
+      "purpose": "implementation, debugging, calibration, and regression testing",
+      "planned_replications_per_stochastic_family": 250,
+      "seed_namespace": "dev:<family_id>:<replication_index>",
+      "may_be_rerun_during_development": true
+    },
+    "holdout_split": {
+      "purpose": "one versioned formal evaluation after code and thresholds are frozen",
+      "planned_replications_per_stochastic_family": 1000,
+      "seed_namespace": "holdout:<manifest_version>:<family_id>:<replication_index>",
+      "must_not_be_used_for_tuning": true,
+      "rerun_policy": "A rerun after a code or threshold change creates a new manifest and result version; prior results remain preserved."
+    },
+    "fixed_critical_fixtures": {
+      "purpose": "deterministic checks for designs that must be blocked or prominently warned",
+      "planned_minimum_count": 12,
+      "required_pass_target": 1.0
+    }
+  },
+  "scenario_families": [
+    {
+      "id": "F01_RANDOMIZED_BINARY_NULL",
+      "version": "1.0.0",
+      "mode": "stochastic",
+      "business_template": "Marketing conversion A/B test",
+      "ground_truth": "average treatment effect equals zero",
+      "planned_variations": [
+        "balanced and mildly imbalanced allocation",
+        "low, medium, and high baseline conversion",
+        "small and medium sample sizes"
+      ],
+      "expected_system_behaviour": "Estimate uncertainty without converting random noise into a deterministic launch recommendation.",
+      "splits": [
+        "development",
+        "holdout"
+      ]
+    },
+    {
+      "id": "F02_RANDOMIZED_BINARY_EFFECT",
+      "version": "1.0.0",
+      "mode": "stochastic",
+      "business_template": "Campaign or landing-page conversion experiment",
+      "ground_truth": "known positive or negative risk difference",
+      "planned_variations": [
+        "effect below practical threshold",
+        "effect near practical threshold",
+        "effect above practical threshold"
+      ],
+      "expected_system_behaviour": "Recover the effect within stated uncertainty and distinguish statistical evidence from business materiality.",
+      "splits": [
+        "development",
+        "holdout"
+      ]
+    },
+    {
+      "id": "F03_RANDOMIZED_CONTINUOUS",
+      "version": "1.0.0",
+      "mode": "stochastic",
+      "business_template": "Average order value or engagement-time experiment",
+      "ground_truth": "known mean treatment effect",
+      "planned_variations": [
+        "zero and non-zero effects",
+        "homogeneous and heterogeneous variance",
+        "light and moderate skew"
+      ],
+      "expected_system_behaviour": "Report effect size, interval uncertainty, assumptions, and an appropriate warning when the supported test is unsuitable.",
+      "splits": [
+        "development",
+        "holdout"
+      ]
+    },
+    {
+      "id": "F04_SAMPLE_RATIO_MISMATCH",
+      "version": "1.0.0",
+      "mode": "stochastic_and_fixed",
+      "business_template": "Randomization quality audit",
+      "ground_truth": "known correct or incorrect allocation mechanism",
+      "planned_variations": [
+        "expected random variation",
+        "moderate allocation defect",
+        "severe allocation defect"
+      ],
+      "expected_system_behaviour": "Separate expected random imbalance from a likely randomization or logging defect and block overconfident interpretation for critical defects.",
+      "splits": [
+        "development",
+        "holdout",
+        "fixed_critical"
+      ]
+    },
+    {
+      "id": "F05_LOW_POWER_AND_SPARSE_EVENTS",
+      "version": "1.0.0",
+      "mode": "stochastic_and_fixed",
+      "business_template": "Early experiment readout",
+      "ground_truth": "known effect with insufficient or borderline information",
+      "planned_variations": [
+        "small sample",
+        "rare conversion",
+        "wide confidence interval",
+        "zero event cell"
+      ],
+      "expected_system_behaviour": "Prefer an inconclusive result, exact method, or explicit limitation over a definitive causal recommendation.",
+      "splits": [
+        "development",
+        "holdout",
+        "fixed_critical"
+      ]
+    },
+    {
+      "id": "F06_PRETREATMENT_ADJUSTMENT_CUPED",
+      "version": "1.0.0",
+      "mode": "stochastic_and_fixed",
+      "business_template": "Marketing experiment with pre-period outcome",
+      "ground_truth": "known treatment effect with known pre-treatment correlation",
+      "planned_variations": [
+        "weak and strong valid pre-treatment correlation",
+        "mislabelled post-treatment variable",
+        "missing pre-period values"
+      ],
+      "expected_system_behaviour": "Use valid pre-treatment information without changing the estimand, and reject or warn on post-treatment leakage.",
+      "splits": [
+        "development",
+        "holdout",
+        "fixed_critical"
+      ]
+    },
+    {
+      "id": "F07_DID_PARALLEL_TRENDS_SUPPORTED",
+      "version": "1.0.0",
+      "mode": "stochastic",
+      "business_template": "Campaign, pricing, training, or onboarding intervention over time",
+      "ground_truth": "known intervention effect under a supported parallel-trends design",
+      "planned_variations": [
+        "zero and non-zero effects",
+        "common time shock",
+        "different baseline levels"
+      ],
+      "expected_system_behaviour": "Recover the stated difference-in-differences estimand while showing the design assumptions and time window.",
+      "splits": [
+        "development",
+        "holdout"
+      ]
+    },
+    {
+      "id": "F08_DID_ASSUMPTION_VIOLATION",
+      "version": "1.0.0",
+      "mode": "stochastic_and_fixed",
+      "business_template": "Intervention analysis with differential pre-trends or anticipation",
+      "ground_truth": "naive difference-in-differences is not supported as a causal estimate",
+      "planned_variations": [
+        "differential pre-trends",
+        "anticipation before intervention",
+        "composition change",
+        "insufficient pre-period observations"
+      ],
+      "expected_system_behaviour": "Surface the violated or untestable assumption and avoid an unqualified causal conclusion.",
+      "splits": [
+        "development",
+        "holdout",
+        "fixed_critical"
+      ]
+    },
+    {
+      "id": "F09_DATA_QUALITY_AND_LEAKAGE",
+      "version": "1.0.0",
+      "mode": "fixed_critical",
+      "business_template": "Pre-analysis data and design audit",
+      "ground_truth": "known planted integrity problem",
+      "planned_variations": [
+        "duplicate observation identifiers",
+        "missing treatment or outcome",
+        "post-treatment covariate",
+        "outcome leakage",
+        "invalid timestamp order",
+        "unsupported individual HR decision target"
+      ],
+      "expected_system_behaviour": "Block the analysis or display a prominent warning according to the predefined severity map.",
+      "splits": [
+        "fixed_critical"
+      ]
+    }
+  ],
+  "planned_acceptance_targets": {
+    "target_status": "TARGETS_ONLY_NOT_ACHIEVED_RESULTS",
+    "statistical_validity": {
+      "nominal_alpha": 0.05,
+      "empirical_type_i_error_range_at_1000_holdout_replications": [
+        0.035,
+        0.065
+      ],
+      "nominal_confidence_level": 0.95,
+      "empirical_interval_coverage_range_at_1000_holdout_replications": [
+        0.935,
+        0.965
+      ],
+      "maximum_relative_bias_when_absolute_true_effect_is_at_least_0_2_outcome_sd": 0.1,
+      "maximum_absolute_mean_bias_under_null_in_outcome_sd": 0.02,
+      "minimum_family_pass_rate": 0.9,
+      "critical_fixed_fixture_detection_rate": 1.0
+    },
+    "workflow_reproducibility": {
+      "planned_core_workflows": 12,
+      "required_core_workflow_completion_rate": 1.0,
+      "planned_expanded_workflows": 20,
+      "minimum_expanded_workflow_completion_rate": 0.9,
+      "required_numeric_result_reproducibility_rate_same_version_environment_and_config": 1.0
+    },
+    "report_traceability": {
+      "required_numeric_claim_to_result_link_rate": 1.0,
+      "required_causal_claim_to_result_link_rate": 1.0,
+      "planned_automated_acceptance_reports": 100,
+      "planned_manual_holdout_report_audit": 30,
+      "maximum_unsupported_numeric_or_causal_claims_in_manual_holdout_audit": 0
+    },
+    "operational_target": {
+      "dataset_size_rows": 100000,
+      "planned_p95_core_analysis_runtime_seconds_on_declared_reference_mac": 30,
+      "notice": "The reference hardware and method-specific workload must be recorded before this target is evaluated."
+    }
+  },
+  "reference_and_freeze_plan": {
+    "reference_calculations": "Analytical formulas and pinned, independently maintained statistical libraries will be selected and recorded before the holdout freeze.",
+    "required_version_records": [
+      "source commit",
+      "application version",
+      "manifest version and SHA-256",
+      "runtime and dependency versions",
+      "operating system and reference hardware",
+      "dataset or generator version",
+      "random seed namespace"
+    ],
+    "formal_holdout_rule": "Run after implementation and thresholds are frozen. Preserve the first formal result even when it fails. Any corrected evaluation receives a new version.",
+    "result_artifact_status": "NO_FORMAL_RESULT_RECORDED_IN_THIS_MANIFEST"
+  },
+  "measured_development_runs": [
+    {
+      "run_id": "current-mvp-development-v0.1",
+      "run_status": "COMPLETED_WITH_EXPLICIT_GAPS",
+      "split": "development",
+      "formal_holdout": false,
+      "started_at_utc": "2026-08-31T10:44:38.506741+00:00",
+      "finished_at_utc": "2026-08-31T10:44:46.624988+00:00",
+      "result_artifact": "evidence/results/causalpilot-benchmark-v0.1-planning/current-mvp-development-v0.1.json",
+      "result_artifact_sha256": "d55f14265f3a719eef45af33952a375e6f4084c4d79ecccfa7adc9b814909392",
+      "input_manifest_sha256": "8f1afb65705f9f8803d80e79862b9936763a68e0834f28f0f996476d937bc36e",
+      "controlled_benchmark_spec_sha256": "8d2e22318b00eebd5d2ceab030618b6fef94d9782ef7597c290bd89d57d51474",
+      "engine_version": "0.1.0",
+      "engine_source_sha256": "ec5f47d8f763b31fcabd2a6f1d719320b2af7302086929c285f0db514bb6826d",
+      "source_commit": null,
+      "source_commit_notice": "The repository had no Git commit. The result is tied to the engine source hash and is not eligible to be described as a formal holdout.",
+      "stochastic_replications_per_family": 250,
+      "family_status_counts": {
+        "implemented": 5,
+        "partially_implemented": 2,
+        "not_implemented": 2
+      },
+      "measured_family_outcomes": {
+        "F01_RANDOMIZED_BINARY_NULL": {
+          "replications": 250,
+          "true_risk_difference": 0.0,
+          "mean_estimate": -0.00128,
+          "mean_bias": -0.00128,
+          "empirical_interval_coverage": 0.928,
+          "two_sided_p_below_0_05_rate": 0.072,
+          "independent_risk_difference_agreement_rate": 1.0,
+          "interpretation": "Development measurement only. The observed p<0.05 rate and coverage are numerically outside the planned formal-holdout bands; no target-pass claim is made."
+        },
+        "F02_RANDOMIZED_BINARY_EFFECT": {
+          "replications": 250,
+          "true_risk_difference": 0.1,
+          "mean_estimate": 0.100416,
+          "mean_bias": 0.0004159999999999997,
+          "empirical_interval_coverage": 0.94,
+          "two_sided_p_below_0_05_rate": 0.968,
+          "independent_risk_difference_agreement_rate": 1.0,
+          "interpretation": "Development measurement only; p<0.05 rate is empirical detection frequency for this configured effect, not accuracy or business impact."
+        },
+        "F03_RANDOMIZED_CONTINUOUS": {
+          "null_variant_replications": 125,
+          "null_true_mean_difference": 0.0,
+          "null_mean_estimate": 0.014787911425576759,
+          "null_empirical_interval_coverage": 0.912,
+          "null_two_sided_p_below_0_05_rate": 0.088,
+          "positive_variant_replications": 125,
+          "positive_true_mean_difference": 0.5,
+          "positive_mean_estimate": 0.4937921437312717,
+          "positive_mean_bias": -0.0062078562687282735,
+          "positive_empirical_interval_coverage": 0.92,
+          "independent_estimate_and_standard_error_agreement_rate": 1.0,
+          "interpretation": "Development measurement only. Both observed coverage values are numerically below the planned formal-holdout band; no target-pass claim is made."
+        },
+        "F04_SAMPLE_RATIO_MISMATCH": {
+          "fixed_fixture_count": 3,
+          "matched_expected_behaviour_count": 3,
+          "interpretation": "Agreement is limited to the three recorded fixed fixtures and is not a calibrated sensitivity or specificity estimate."
+        },
+        "F05_LOW_POWER_AND_SPARSE_EVENTS": {
+          "fixed_fixture_count": 3,
+          "non_decisive_business_interpretation_count": 3,
+          "explicit_low_power_or_sparse_warning_count": 0,
+          "implementation_status": "partial",
+          "interpretation": "The current engine exposes uncertainty but lacks a dedicated low-power or sparse-event warning and does not implement an exact sparse-event method."
+        },
+        "F06_PRETREATMENT_ADJUSTMENT_CUPED": {
+          "replications": 250,
+          "true_mean_effect": 0.5,
+          "mean_cuped_estimate": 0.5020907377137295,
+          "mean_cuped_bias": 0.0020907377137294736,
+          "empirical_cuped_interval_coverage": 0.936,
+          "independent_theta_and_adjusted_estimate_agreement_rate": 1.0,
+          "interpretation": "Development measurement only; independent agreement covers the implemented formulas and generated scenarios, not general causal validity."
+        },
+        "F07_DID_PARALLEL_TRENDS_SUPPORTED": {
+          "implementation_status": "not_implemented",
+          "measured_outcomes": null
+        },
+        "F08_DID_ASSUMPTION_VIOLATION": {
+          "implementation_status": "not_implemented",
+          "measured_outcomes": null
+        },
+        "F09_DATA_QUALITY_AND_LEAKAGE": {
+          "fixed_fixture_count": 7,
+          "matched_expected_safety_behaviour_count": 6,
+          "matched_expected_safety_behaviour_rate": 0.8571428571428571,
+          "implementation_status": "partial",
+          "failed_fixture": "unsupported_individual_hr_decision_target",
+          "interpretation": "The policy and output narrative prohibit individual HR decisions, but the current engine does not refuse that intent at input level. The planned complete-detection target is not achieved on this fixed suite."
+        }
+      },
+      "claim_boundary": "These are synthetic development measurements and fixed-fixture observations for the recorded source hash. They are not formal holdout validation, real-world adoption, business impact, production readiness, or evidence for unimplemented families."
+    },
+    {
+      "run_id": "current-mvp-development-v0.2",
+      "run_status": "COMPLETED_WITH_EXPLICIT_GAPS",
+      "split": "development",
+      "formal_holdout": false,
+      "started_at_utc": "2026-08-31T10:57:12.672660+00:00",
+      "finished_at_utc": "2026-08-31T10:57:21.460548+00:00",
+      "duration_seconds": 8.787888,
+      "result_artifact": "evidence/results/causalpilot-benchmark-v0.1-planning/current-mvp-development-v0.2.json",
+      "result_artifact_sha256": "c8734fd34ba9bd420f2887bcccf2e4eb93e7d02deca994b7b0af36d4ffb4d41b",
+      "input_manifest_sha256": "4161577e8320055f0b43a4894ca01f284c896709f01b1a9e4d7ef28897bd17fa",
+      "controlled_benchmark_spec_sha256": "8d2e22318b00eebd5d2ceab030618b6fef94d9782ef7597c290bd89d57d51474",
+      "harness_version": "0.2.0",
+      "harness_tree_sha256": "a18136931b1a320312076a5fcad0e8f9f51a9307cfd72bab1d77a116055910c4",
+      "engine_version": "0.1.0",
+      "engine_source_sha256": "7e5817eb4ee90d500359b554fda6a11c00188a71045abb525754de71c649dcf0",
+      "source_commit": null,
+      "source_commit_notice": "The repository had no Git commit. The result is tied to the engine source hash and is not eligible to be described as a formal holdout.",
+      "stochastic_replications_per_family": 250,
+      "family_status_counts": {
+        "implemented": 7,
+        "partially_implemented": 0,
+        "not_implemented": 2
+      },
+      "measured_family_outcomes": {
+        "F01_RANDOMIZED_BINARY_NULL": {
+          "replications": 250,
+          "true_risk_difference": 0.0,
+          "mean_estimate": -0.00013600000000000046,
+          "mean_bias": -0.00013600000000000046,
+          "empirical_interval_coverage": 0.948,
+          "two_sided_p_below_0_05_rate": 0.052,
+          "independent_risk_difference_agreement_rate": 1.0,
+          "interpretation": "Development measurement only; no formal target-pass claim is made."
+        },
+        "F02_RANDOMIZED_BINARY_EFFECT": {
+          "replications": 250,
+          "true_risk_difference": 0.1,
+          "mean_estimate": 0.10004,
+          "mean_bias": 0.00003999999999999837,
+          "empirical_interval_coverage": 0.952,
+          "two_sided_p_below_0_05_rate": 0.972,
+          "independent_risk_difference_agreement_rate": 1.0,
+          "interpretation": "Development measurement only; p<0.05 rate is empirical detection frequency for this configured effect, not accuracy or business impact."
+        },
+        "F03_RANDOMIZED_CONTINUOUS": {
+          "null_variant_replications": 125,
+          "null_true_mean_difference": 0.0,
+          "null_mean_estimate": -0.0055321797468095325,
+          "null_empirical_interval_coverage": 0.952,
+          "null_two_sided_p_below_0_05_rate": 0.048,
+          "positive_variant_replications": 125,
+          "positive_true_mean_difference": 0.5,
+          "positive_mean_estimate": 0.5041186169246887,
+          "positive_mean_bias": 0.004118616924688734,
+          "positive_empirical_interval_coverage": 0.984,
+          "independent_estimate_and_standard_error_agreement_rate": 1.0,
+          "interpretation": "Development measurement only. Positive-effect coverage is numerically above the planned formal-holdout band; no target-pass claim is made."
+        },
+        "F04_SAMPLE_RATIO_MISMATCH": {
+          "fixed_fixture_count": 3,
+          "matched_expected_behaviour_count": 3,
+          "interpretation": "Agreement is limited to the three recorded fixed fixtures and is not a calibrated sensitivity or specificity estimate."
+        },
+        "F05_LOW_POWER_AND_SPARSE_EVENTS": {
+          "fixed_fixture_count": 3,
+          "non_decisive_business_interpretation_count": 3,
+          "explicit_low_power_or_sparse_warning_count": 3,
+          "observed_warning_code": "SPARSE_BINARY_OUTCOME",
+          "implementation_status": "implemented_for_recorded_fixtures",
+          "interpretation": "All three fixed fixtures produced the sparse-information warning and share-with-caveats readiness. This does not validate normal-approximation inference for every low-information design."
+        },
+        "F06_PRETREATMENT_ADJUSTMENT_CUPED": {
+          "replications": 250,
+          "true_mean_effect": 0.5,
+          "mean_cuped_estimate": 0.4895809162090098,
+          "mean_cuped_bias": -0.010419083790990213,
+          "empirical_cuped_interval_coverage": 0.948,
+          "independent_theta_and_adjusted_estimate_agreement_rate": 1.0,
+          "interpretation": "Development measurement only; independent agreement covers the implemented formulas and generated scenarios, not general causal validity."
+        },
+        "F07_DID_PARALLEL_TRENDS_SUPPORTED": {
+          "implementation_status": "not_implemented",
+          "measured_outcomes": null
+        },
+        "F08_DID_ASSUMPTION_VIOLATION": {
+          "implementation_status": "not_implemented",
+          "measured_outcomes": null
+        },
+        "F09_DATA_QUALITY_AND_LEAKAGE": {
+          "fixed_fixture_count": 7,
+          "matched_expected_safety_behaviour_count": 7,
+          "matched_expected_safety_behaviour_rate": 1.0,
+          "observed_individual_hr_rejection_code": "UNSUPPORTED_DECISION_TARGET",
+          "implementation_status": "implemented_for_recorded_fixtures",
+          "interpretation": "All seven fixed fixtures matched their predefined safety behaviour, including input-level rejection of the individual employment decision target. This is not proof that every unsafe or leaking dataset is detected."
+        }
+      },
+      "supersession_notice": "This is the current-source development measurement after the safety-contract changes. The v0.1 artifact remains preserved as historical evidence of the earlier gaps.",
+      "claim_boundary": "These are synthetic development measurements and fixed-fixture observations for the recorded source hash. They are not formal holdout validation, real-world adoption, business impact, production readiness, or evidence for unimplemented families."
+    }
+  ],
+  "application_claim_guardrail": {
+    "permitted_before_results_exist": "Designed a versioned benchmark plan with development and holdout evaluation.",
+    "not_permitted_before_results_exist": [
+      "validated",
+      "achieved",
+      "passed",
+      "accurate",
+      "statistically reliable",
+      "production-ready"
+    ],
+    "required_after_results_exist": "Use the actual measured numerator, denominator, confidence interval where applicable, manifest version, software version, and result artifact."
+  }
+}

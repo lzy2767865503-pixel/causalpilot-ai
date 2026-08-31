@@ -1,0 +1,443 @@
+{
+  "artifact_type": "actual_benchmark_run",
+  "claim_boundary": {
+    "evidence_scope": "Measured synthetic development scenarios and fixed safety fixtures for the recorded current source only.",
+    "not_evidence_of": [
+      "formal holdout validation",
+      "real-world adoption",
+      "real-world business impact",
+      "validity outside the recorded scenario families",
+      "implemented Difference-in-Differences support",
+      "production readiness"
+    ]
+  },
+  "families": [
+    {
+      "data_generating_truth": {
+        "allocation": {
+          "control": 500,
+          "treatment": 500
+        },
+        "control_probability": 0.15,
+        "risk_difference": 0.0,
+        "treatment_probability": 0.15,
+        "units_per_replication": 1000
+      },
+      "execution_status": "measured_development",
+      "family_id": "F01_RANDOMIZED_BINARY_NULL",
+      "family_version": "1.0.0",
+      "implementation_status": "implemented_in_current_mvp",
+      "measured_outcomes": {
+        "blocked_run_count": 0,
+        "deterministic_rerun_match_rate_first_five": 1.0,
+        "empirical_interval_coverage": 0.928,
+        "independent_risk_difference_agreement_rate": 1.0,
+        "mean_absolute_error": 0.018128000000000002,
+        "mean_bias": -0.00128,
+        "mean_estimate": -0.00128,
+        "two_sided_p_below_0_05_rate": 0.072
+      },
+      "replications_planned_for_this_run": 250,
+      "replications_with_estimate": 250,
+      "split": "development",
+      "target_assessment": "Not evaluated against formal acceptance bands because this is a development split."
+    },
+    {
+      "data_generating_truth": {
+        "allocation": {
+          "control": 500,
+          "treatment": 500
+        },
+        "control_probability": 0.15,
+        "risk_difference": 0.1,
+        "treatment_probability": 0.25,
+        "units_per_replication": 1000
+      },
+      "execution_status": "measured_development",
+      "family_id": "F02_RANDOMIZED_BINARY_EFFECT",
+      "family_version": "1.0.0",
+      "implementation_status": "implemented_in_current_mvp",
+      "measured_outcomes": {
+        "blocked_run_count": 0,
+        "deterministic_rerun_match_rate_first_five": 1.0,
+        "empirical_interval_coverage": 0.94,
+        "independent_risk_difference_agreement_rate": 1.0,
+        "mean_absolute_error": 0.019808,
+        "mean_bias": 0.0004159999999999997,
+        "mean_estimate": 0.100416,
+        "two_sided_p_below_0_05_rate": 0.968
+      },
+      "replications_planned_for_this_run": 250,
+      "replications_with_estimate": 250,
+      "split": "development",
+      "target_assessment": "Not evaluated against formal acceptance bands because this is a development split."
+    },
+    {
+      "data_generating_truth": {
+        "allocation": {
+          "control": 200,
+          "treatment": 200
+        },
+        "outcome_noise": "Box-Muller standard normal",
+        "units_per_replication": 400,
+        "variants": {
+          "null": 0.0,
+          "positive_effect": 0.5
+        }
+      },
+      "execution_status": "measured_development",
+      "family_id": "F03_RANDOMIZED_CONTINUOUS",
+      "family_version": "1.0.0",
+      "implementation_status": "implemented_in_current_mvp",
+      "measured_outcomes_by_variant": {
+        "null": {
+          "empirical_interval_coverage": 0.912,
+          "independent_mean_difference_agreement_rate": 1.0,
+          "independent_standard_error_agreement_rate": 1.0,
+          "mean_bias": 0.014787911425576759,
+          "mean_estimate": 0.014787911425576759,
+          "replications": 125,
+          "true_mean_difference": 0.0,
+          "two_sided_p_below_0_05_rate": 0.088
+        },
+        "positive_effect": {
+          "empirical_interval_coverage": 0.92,
+          "independent_mean_difference_agreement_rate": 1.0,
+          "independent_standard_error_agreement_rate": 1.0,
+          "mean_bias": -0.0062078562687282735,
+          "mean_estimate": 0.4937921437312717,
+          "replications": 125,
+          "true_mean_difference": 0.5,
+          "two_sided_p_below_0_05_rate": 1.0
+        }
+      },
+      "replications_planned_for_this_run": 250,
+      "split": "development",
+      "target_assessment": "Not evaluated against formal acceptance bands because this is a development split."
+    },
+    {
+      "execution_status": "measured_fixed_fixtures",
+      "family_id": "F04_SAMPLE_RATIO_MISMATCH",
+      "family_version": "1.0.0",
+      "fixture_count": 3,
+      "fixtures": [
+        {
+          "assignment": {
+            "control": 50,
+            "treatment": 50
+          },
+          "expected_srm_block": false,
+          "fixture": "balanced_50_50",
+          "matched_expected_behaviour": true,
+          "observed_srm_block": false,
+          "srm_p_value": 1.0
+        },
+        {
+          "assignment": {
+            "control": 45,
+            "treatment": 55
+          },
+          "expected_srm_block": false,
+          "fixture": "mild_55_45",
+          "matched_expected_behaviour": true,
+          "observed_srm_block": false,
+          "srm_p_value": 0.317310507862914
+        },
+        {
+          "assignment": {
+            "control": 10,
+            "treatment": 90
+          },
+          "expected_srm_block": true,
+          "fixture": "severe_90_10",
+          "matched_expected_behaviour": true,
+          "observed_srm_block": true,
+          "srm_p_value": 1.2441921148543513e-15
+        }
+      ],
+      "implementation_status": "implemented_in_current_mvp",
+      "matched_expected_behaviour_count": 3,
+      "matched_expected_behaviour_rate": 1.0,
+      "split": "fixed_critical",
+      "target_assessment": "Measured only for these fixed fixtures; this is not a calibrated SRM sensitivity/specificity claim."
+    },
+    {
+      "execution_status": "measured_fixed_fixtures_with_gap",
+      "family_id": "F05_LOW_POWER_AND_SPARSE_EVENTS",
+      "family_version": "1.0.0",
+      "fixture_count": 3,
+      "fixtures": [
+        {
+          "business_status": "inconclusive",
+          "claim_status": "conditional_randomized_itt",
+          "confidence_interval_high": 0.27753279986288903,
+          "confidence_interval_low": -0.27753279986288903,
+          "decision_readiness": "ready",
+          "estimate": 0.0,
+          "explicit_low_power_or_sparse_warning": false,
+          "fixture": "both_arms_zero_events",
+          "p_value_two_sided": 1.0,
+          "status": "ok",
+          "warning_codes": []
+        },
+        {
+          "business_status": "inconclusive",
+          "claim_status": "conditional_randomized_itt",
+          "confidence_interval_high": 0.40415002679523837,
+          "confidence_interval_low": -0.1894283527495886,
+          "decision_readiness": "ready",
+          "estimate": 0.1,
+          "explicit_low_power_or_sparse_warning": false,
+          "fixture": "one_treatment_event",
+          "p_value_two_sided": 0.30490178817878844,
+          "status": "ok",
+          "warning_codes": []
+        },
+        {
+          "business_status": "inconclusive",
+          "claim_status": "conditional_randomized_itt",
+          "confidence_interval_high": 0.6244653702374746,
+          "confidence_interval_low": -0.2643248375838887,
+          "decision_readiness": "ready",
+          "estimate": 0.2,
+          "explicit_low_power_or_sparse_warning": false,
+          "fixture": "small_five_per_arm",
+          "p_value_two_sided": 0.29184054514378854,
+          "status": "ok",
+          "warning_codes": []
+        }
+      ],
+      "gap": "The current engine can expose wide uncertainty and may return an inconclusive business status, but it has no dedicated low-power or sparse-event diagnostic. Normal-approximation inference should not be represented as an exact sparse-event method.",
+      "implementation_status": "partially_implemented_in_current_mvp",
+      "measured_outcomes": {
+        "explicit_low_power_or_sparse_warning_count": 0,
+        "non_decisive_business_interpretation_count": 3
+      },
+      "split": "fixed_critical",
+      "target_assessment": "Partial only; the manifest's expected behaviour is not fully implemented."
+    },
+    {
+      "data_generating_truth": {
+        "allocation": {
+          "control": 200,
+          "treatment": 200
+        },
+        "outcome_noise": "Box-Muller standard normal",
+        "pre_treatment_coefficient": 0.8,
+        "true_mean_effect": 0.5,
+        "units_per_replication": 400
+      },
+      "execution_status": "measured_development",
+      "family_id": "F06_PRETREATMENT_ADJUSTMENT_CUPED",
+      "family_version": "1.0.0",
+      "implementation_status": "implemented_in_current_mvp",
+      "measured_outcomes": {
+        "empirical_cuped_interval_coverage": 0.936,
+        "independent_adjusted_estimate_agreement_rate": 1.0,
+        "independent_theta_agreement_rate": 1.0,
+        "mean_cuped_bias": 0.0020907377137294736,
+        "mean_cuped_estimate": 0.5020907377137295,
+        "mean_raw_estimate": 0.5023201465633111,
+        "positive_reported_variance_reduction_rate": 1.0
+      },
+      "replications_planned_for_this_run": 250,
+      "replications_with_cuped_estimate": 250,
+      "split": "development",
+      "target_assessment": "Not evaluated against formal acceptance bands because this is a development split."
+    },
+    {
+      "claim_boundary": "No implementation, accuracy, assumption-check, or validation claim is permitted for this family.",
+      "execution_status": "not_run",
+      "family_id": "F07_DID_PARALLEL_TRENDS_SUPPORTED",
+      "family_version": "1.0.0",
+      "implementation_status": "not_implemented_in_current_mvp",
+      "measured_outcomes": null,
+      "reason": "The current engine has no Difference-in-Differences estimator or panel/time schema."
+    },
+    {
+      "claim_boundary": "No implementation, accuracy, assumption-check, or validation claim is permitted for this family.",
+      "execution_status": "not_run",
+      "family_id": "F08_DID_ASSUMPTION_VIOLATION",
+      "family_version": "1.0.0",
+      "implementation_status": "not_implemented_in_current_mvp",
+      "measured_outcomes": null,
+      "reason": "The current engine has no Difference-in-Differences pre-trend or anticipation diagnostics."
+    },
+    {
+      "execution_status": "measured_fixed_fixtures_with_gap",
+      "family_id": "F09_DATA_QUALITY_AND_LEAKAGE",
+      "family_version": "1.0.0",
+      "fixture_count": 7,
+      "fixtures": [
+        {
+          "expected_statuses": [
+            "blocked"
+          ],
+          "fixture": "duplicate_unit_id",
+          "matched_expected_safety_behaviour": true,
+          "note": "One-row-per-unit violation should block analysis.",
+          "observed_claim_status": "blocked",
+          "observed_error_codes": [
+            "DUPLICATE_UNIT_ID"
+          ],
+          "observed_status": "blocked",
+          "required_error_code": "DUPLICATE_UNIT_ID"
+        },
+        {
+          "expected_statuses": [
+            "blocked"
+          ],
+          "fixture": "missing_required_outcome_column",
+          "matched_expected_safety_behaviour": true,
+          "note": "Missing required analysis field should block analysis.",
+          "observed_claim_status": "blocked",
+          "observed_error_codes": [
+            "EMPTY_ASSIGNMENT_GROUP",
+            "EMPTY_DATASET",
+            "MISSING_REQUIRED_COLUMN"
+          ],
+          "observed_status": "blocked",
+          "required_error_code": "MISSING_REQUIRED_COLUMN"
+        },
+        {
+          "expected_statuses": [
+            "blocked"
+          ],
+          "fixture": "invalid_binary_outcome",
+          "matched_expected_safety_behaviour": true,
+          "note": "Outcome outside declared binary levels should block analysis.",
+          "observed_claim_status": "blocked",
+          "observed_error_codes": [
+            "INVALID_OUTCOME_VALUE"
+          ],
+          "observed_status": "blocked",
+          "required_error_code": "INVALID_OUTCOME_VALUE"
+        },
+        {
+          "expected_statuses": [
+            "blocked"
+          ],
+          "fixture": "missing_treatment_assignment",
+          "matched_expected_safety_behaviour": true,
+          "note": "Missing assignment should block analysis.",
+          "observed_claim_status": "blocked",
+          "observed_error_codes": [
+            "MISSING_TREATMENT_VALUE"
+          ],
+          "observed_status": "blocked",
+          "required_error_code": "MISSING_TREATMENT_VALUE"
+        },
+        {
+          "expected_statuses": [
+            "error"
+          ],
+          "fixture": "unattested_pre_treatment_covariate",
+          "matched_expected_safety_behaviour": true,
+          "note": "CUPED request without pre-treatment attestation should fail safely.",
+          "observed_claim_status": "not_evaluable",
+          "observed_error_codes": [
+            "INVALID_REQUEST"
+          ],
+          "observed_status": "error",
+          "required_error_code": "INVALID_REQUEST"
+        },
+        {
+          "expected_statuses": [
+            "blocked"
+          ],
+          "fixture": "overlapping_core_columns",
+          "matched_expected_safety_behaviour": true,
+          "note": "Core analysis roles must use distinct columns.",
+          "observed_claim_status": "blocked",
+          "observed_error_codes": [
+            "EMPTY_ASSIGNMENT_GROUP",
+            "EMPTY_DATASET",
+            "OVERLAPPING_CORE_COLUMNS"
+          ],
+          "observed_status": "blocked",
+          "required_error_code": "OVERLAPPING_CORE_COLUMNS"
+        },
+        {
+          "expected_statuses": [
+            "blocked",
+            "error"
+          ],
+          "fixture": "unsupported_individual_hr_decision_target",
+          "matched_expected_safety_behaviour": false,
+          "note": "The current structured schema does not encode decision purpose, so the engine does not refuse this analysis name. Its narrative forbids individual HR decisions, but that is not equivalent to input-level refusal.",
+          "observed_claim_status": "conditional_randomized_itt",
+          "observed_error_codes": [],
+          "observed_status": "ok",
+          "required_error_code": null
+        }
+      ],
+      "implementation_status": "partially_implemented_in_current_mvp",
+      "known_gap": "Individual employment-decision intent is prohibited in policy and narrative, but the current engine lacks a structured decision-purpose field and input-level refusal for that intent.",
+      "matched_expected_safety_behaviour_count": 6,
+      "matched_expected_safety_behaviour_rate": 0.8571428571428571,
+      "split": "fixed_critical",
+      "target_assessment": "The planned target of complete critical-fixture detection is not achieved on this fixed suite. This measured failure must remain visible until a versioned fix is tested."
+    }
+  ],
+  "harness": {
+    "name": "CausalPilot evidence-safe benchmark harness",
+    "sha256": "6cf5d4b51fc2fdfc70990daf33943b38795cb7885a2dd54d37736809b6bc5d10",
+    "version": "0.1.0"
+  },
+  "manifest": {
+    "controlled_spec_sha256": "8d2e22318b00eebd5d2ceab030618b6fef94d9782ef7597c290bd89d57d51474",
+    "input_file_sha256": "8f1afb65705f9f8803d80e79862b9936763a68e0834f28f0f996476d937bc36e",
+    "manifest_version": "causalpilot-benchmark-v0.1-planning",
+    "path": "evidence/benchmark-manifest.json",
+    "planned_targets_are_not_results": true
+  },
+  "project": {
+    "name": "CausalPilot AI",
+    "product_author_problem_owner_qa_owner": "LAI ZEYU (来泽宇)"
+  },
+  "run": {
+    "command": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "/Users/lai/Documents/ChatGPT/causa/scripts/run_evidence_benchmark.py",
+      "--split",
+      "development",
+      "--run-id",
+      "current-mvp-development-v0.1"
+    ],
+    "duration_seconds": 8.118247,
+    "finished_at_utc": "2026-08-31T10:44:46.624988+00:00",
+    "formal_holdout": false,
+    "run_id": "current-mvp-development-v0.1",
+    "split": "development",
+    "started_at_utc": "2026-08-31T10:44:38.506741+00:00",
+    "stochastic_replications_per_family": 250
+  },
+  "schema_version": "1.0.0",
+  "source": {
+    "current_working_directory": "/Users/lai/Documents/ChatGPT/causa",
+    "engine_source_sha256": "ec5f47d8f763b31fcabd2a6f1d719320b2af7302086929c285f0db514bb6826d",
+    "engine_version": "0.1.0",
+    "git": {
+      "has_commit": false,
+      "head": null,
+      "note": "No Git commit exists; this run cannot be a formal holdout.",
+      "status_entry_count": 17,
+      "working_tree_clean": false
+    },
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]"
+  },
+  "summary": {
+    "all_manifest_families_reported": true,
+    "implemented_family_count": 5,
+    "known_release_blocking_evidence_gaps": [
+      "No clean committed source exists, so this is not a formal holdout run.",
+      "Difference-in-Differences estimator and diagnostics are not implemented.",
+      "Dedicated low-power/sparse-event diagnostics are not implemented.",
+      "Individual HR-decision intent is not refused at input level."
+    ],
+    "manifest_family_count": 9,
+    "not_implemented_family_count": 2,
+    "partially_implemented_family_count": 2
+  }
+}

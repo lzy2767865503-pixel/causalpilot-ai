@@ -1,0 +1,55 @@
+name: Feature request
+description: Propose a scoped product, workflow, or method improvement.
+title: "[Feature]: "
+labels: []
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Describe the user decision or workflow problem, not only the desired implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Explain the smallest useful scope and what remains out of scope.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Primary area
+      options:
+        - Marketing experiment workflow
+        - Aggregate HR programme evaluation
+        - Statistical method or diagnostic
+        - Privacy or security
+        - Windows or macOS packaging
+        - Accessibility or interface
+        - Documentation or evidence
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Acceptance evidence
+      description: What tests, fixtures, screenshots, or release checks would demonstrate that this works?
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Statistical, privacy, or HR-safety risks
+      description: State any new assumptions, sensitive-data paths, causal-claim risk, or effect on people.
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Product-boundary confirmation
+      options:
+        - label: This request does not rank people or recommend individual hiring, firing, promotion, compensation, performance, or risk decisions.
+          required: true
+        - label: I have not included personal, customer, employee, or candidate data.
+          required: true

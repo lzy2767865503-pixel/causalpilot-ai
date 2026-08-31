@@ -1,0 +1,3 @@
+c5e6d6561cc9db3c210cd4b2608aa1fe4d14d1e9223c34eab03ee43e2176bdf2  release/CausalPilot-AI-0.1.0-arm64.dmg
+6aae962cfeaab948359b637f822876f7f480dde60d4400f96bc610950b1a4dc9  release/CausalPilot-AI-0.1.0-arm64.dmg.blockmap
+c8734fd34ba9bd420f2887bcccf2e4eb93e7d02deca994b7b0af36d4ffb4d41b  evidence/results/causalpilot-benchmark-v0.1-planning/current-mvp-development-v0.2.json

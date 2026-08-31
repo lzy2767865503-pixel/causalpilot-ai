@@ -1,0 +1,127 @@
+{
+  "name": "causalpilot-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Offline-first evidence workbench for randomized business experiments.",
+  "author": "LAI ZEYU (来泽宇)",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "dev:desktop": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on tcp:5173 && npm run build:electron && electron .\"",
+    "build": "tsc --noEmit && vite build && npm run build:electron",
+    "build:electron": "node scripts/build-electron.mjs",
+    "build:sidecar": "node scripts/build-sidecar.mjs",
+    "build:icon": "zsh scripts/build-mac-icon.sh",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:engine": "node scripts/test-engine.mjs",
+    "test:sidecar": "node scripts/sidecar-smoke.mjs",
+    "check:windows-config": "node scripts/validate-windows-config.mjs",
+    "check": "npm run test && npm run build",
+    "qa:visual": "node scripts/capture-ui.mjs",
+    "qa:packaged": "node scripts/packaged-e2e.mjs",
+    "qa:windows-store-captures": "node scripts/capture-packaged-windows.mjs",
+    "desktop": "npm run build && electron .",
+    "package:mac:dir": "npm run build:icon && npm run build:sidecar && npm run build && electron-builder --mac dir --arm64",
+    "package:mac": "npm run build:icon && npm run build:sidecar && npm run build && electron-builder --mac dmg --arm64",
+    "package:win:dir": "npm run build:sidecar && npm run build && electron-builder --win dir --x64",
+    "package:win": "npm run build:sidecar && npm run build && electron-builder --win --x64",
+    "package:win:store": "npm run build:sidecar && npm run build && electron-builder --config electron-builder.store.cjs --win appx --x64"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.2.8",
+    "@fontsource/newsreader": "^5.2.8",
+    "lucide-react": "^0.468.0",
+    "papaparse": "^5.5.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.5",
+    "@types/papaparse": "^5.3.15",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "electron": "^44.0.0",
+    "electron-builder": "^26.15.3",
+    "jsdom": "^25.0.1",
+    "playwright-core": "^1.55.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^4.1.11",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.laizeyu.causalpilot",
+    "productName": "CausalPilot AI",
+    "copyright": "Copyright © 2026 LAI ZEYU (来泽宇)",
+    "afterPack": "scripts/after-pack.mjs",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "AUTHORS.md",
+      "LICENSE",
+      "NOTICE.md",
+      "THIRD_PARTY_NOTICES.md",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "engine/dist",
+        "to": "engine",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.business",
+      "icon": "build/icon.icns",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "target": [
+        "dmg"
+      ],
+      "artifactName": "CausalPilot-AI-${version}-${arch}.${ext}"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon-1024.png",
+      "legalTrademarks": "CausalPilot AI · LAI ZEYU (来泽宇)",
+      "requestedExecutionLevel": "asInvoker",
+      "artifactName": "CausalPilot-AI-${version}-windows-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "CausalPilot AI",
+      "artifactName": "CausalPilot-AI-${version}-windows-${arch}-setup.${ext}"
+    }
+  }
+}

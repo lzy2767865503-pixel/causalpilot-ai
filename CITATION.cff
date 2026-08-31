@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use CausalPilot AI in published work, please cite this software."
+title: "CausalPilot AI"
+abstract: "An offline-first evidence workbench for declared randomized two-arm business experiments."
+type: software
+version: 0.1.0
+authors:
+  - family-names: "Lai"
+    given-names: "Zeyu"
+    alias: "LAI ZEYU (来泽宇)"
+license: MIT
