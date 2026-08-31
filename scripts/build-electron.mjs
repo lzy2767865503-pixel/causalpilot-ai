@@ -5,14 +5,26 @@ import path from "node:path";
 const projectRoot = path.resolve(import.meta.dirname, "..");
 await rm(path.join(projectRoot, "dist-electron"), { recursive: true, force: true });
 
-const executable = process.platform === "win32" ? "npx.cmd" : "npx";
-const child = spawn(executable, ["tsc", "-p", "tsconfig.electron.json"], {
+// Invoke TypeScript through the current Node runtime. Spawning an npm-generated
+// `.cmd` shim directly can fail with EINVAL on current Windows Node releases.
+const typescriptCli = path.join(
+  projectRoot,
+  "node_modules",
+  "typescript",
+  "bin",
+  "tsc",
+);
+const child = spawn(
+  process.execPath,
+  [typescriptCli, "-p", "tsconfig.electron.json"],
+  {
   cwd: projectRoot,
   env: process.env,
   shell: false,
   stdio: "inherit",
   windowsHide: true,
-});
+  },
+);
 
 child.once("error", (error) => {
   process.stderr.write(`Could not start the Electron TypeScript build: ${error.message}\n`);
@@ -26,4 +38,3 @@ child.once("close", (code, signal) => {
     process.exitCode = code || 1;
   }
 });
-
