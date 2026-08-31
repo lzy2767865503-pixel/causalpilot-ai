@@ -27,28 +27,30 @@ call, or runtime language model in version 0.1.0.
 
 ## Windows artifacts
 
-Successful GitHub-hosted Windows Server 2022 installer preflight
-[33406656618](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33406656618)
-at commit
-[`612a618a3de36ab53865354f9e8f0a5e9a05c26a`](https://github.com/lzy2767865503-pixel/causalpilot-ai/commit/612a618a3de36ab53865354f9e8f0a5e9a05c26a)
-produced:
+The tagged GitHub-hosted Windows Server 2022 workflow
+[33409332005](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33409332005)
+built annotated tag `v0.1.0` at commit
+[`b2a226ac9e2623ba210a192095d2feb2eb7dacf4`](https://github.com/lzy2767865503-pixel/causalpilot-ai/commit/b2a226ac9e2623ba210a192095d2feb2eb7dacf4)
+and produced the attached public files:
 
 - `CausalPilot-AI-0.1.0-windows-x64-setup.exe` — SHA-256
-  `22cf9261e8bf86f21637764c0c1d4f4807b0bce24567d22a1b9fa1020f4cdc88`
+  `3d8f12ea5dc999cd014710ef78c7e6dcce467a2aa20c5a609f37ca35b116a0ce`
 - `CausalPilot-AI-0.1.0-windows-x64.zip` — SHA-256
-  `70cffa566f09fd105e64c9f83965e9bc5e5daeb7c6875201cfb50fe58aaa9c74`
-- `SHA256SUMS-windows.txt`
+  `76fca35d57595f480a06c4e89d51e28b4f8e424d3e737a26ffdbe84ae508d790`
+- `SHA256SUMS-windows.txt` — SHA-256
+  `a5f7d3e448f98b7556ce58c4586f9939a6576afd97733d8ec88562470391229a`
 
-These hashes identify the temporary GitHub Actions preflight artifacts only,
-not the files attached to the tagged release. The tag workflow rebuilds the
-release independently; verify public downloads against the attached
-`SHA256SUMS-windows.txt`, which is authoritative for the tagged build.
+The draft assets were downloaded and independently rehashed before publication.
+The checksum file uses UTF-8 without BOM and LF line endings, and both binary
+entries passed `shasum -a 256 -c` after the portability correction. The release
+page and all three asset endpoints returned HTTP 200 without authentication.
+Verify every download against the attached `SHA256SUMS-windows.txt`.
 Do not attach the Microsoft Store APPX here unless its identity was generated
 from exact Partner Center values and its separate Store checks were completed.
 
-## Preflight evidence
+## Tagged release evidence
 
-The successful hosted run recorded:
+The successful tagged run recorded:
 
 - 17 frontend/path-contract tests and 15 deterministic-engine tests passed;
 - the Windows x64 sidecar processed the frozen CSV from a Unicode path and
@@ -72,7 +74,7 @@ exercised.
 
 ## Important boundaries
 
-- The preflight ran on GitHub-hosted Windows Server 2022 and exercised silent
+- The tagged package ran on GitHub-hosted Windows Server 2022 and exercised silent
   install, installed-app launch/workflow, silent uninstall, and main-executable
   removal. It was not a clean Windows 10 or Windows 11 consumer device, so
   broad consumer-Windows compatibility is not established.
@@ -85,9 +87,8 @@ exercised.
   unrecognized-publisher warning.
 - No Partner Center Identity, Publisher, Store-bound AppX, Store upload,
   certification, public product page, or Store acquisition has been verified.
-- The cited manual preflight produced temporary Actions artifacts only. The
-  assets attached to this release come from the independent tagged build and
-  must be verified with its attached checksum file.
+- The assets attached to this release come from the tagged build and are the
+  public binaries identified by the hashes above.
 - HR use is limited to aggregate programme, policy, cohort, or team-level
   evaluation. Individual employment decisions are rejected.
 - Difference-in-differences, observational causal estimation, subgroup

@@ -6,11 +6,11 @@
 
 **Public source:** <https://github.com/lzy2767865503-pixel/causalpilot-ai>
 
-**Public binary release:** Pending; no public GitHub Release or Microsoft Store listing was found
+**Public Windows binary release:** <https://github.com/lzy2767865503-pixel/causalpilot-ai/releases/tag/v0.1.0>
 
 **Historical Mac target:** macOS 13.0 or newer, Apple Silicon (`arm64`)
 
-**Windows preflight target:** Windows x64, tested on a GitHub-hosted Windows Server 2022 runner
+**Windows release target:** Windows x64, tested on a GitHub-hosted Windows Server 2022 runner
 
 ## Evidence-safe outcome
 
@@ -26,9 +26,9 @@ evidence-export workflow. The bundle uses an ad-hoc integrity signature, not an
 Apple Developer ID certificate; Gatekeeper assessment rejected it; and no clean
 independent target was used.
 
-The latest Windows record covers GitHub Actions run
-[`33406656618`](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33406656618)
-at source commit `612a618a3de36ab53865354f9e8f0a5e9a05c26a`. On the
+The latest Windows record covers tagged GitHub Actions run
+[`33409332005`](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33409332005)
+at source commit `b2a226ac9e2623ba210a192095d2feb2eb7dacf4`. On the
 recorded Windows x64 runner, the workflow built the PyInstaller sidecar, NSIS
 installer, ZIP, and `win-unpacked` application; passed the sidecar Unicode-path
 smoke; silently installed the NSIS package; launched the installed application;
@@ -37,41 +37,42 @@ silently uninstalled it; confirmed removal of the main executable; and captured
 four 1366 × 768 packaged Windows screenshots without recorded console errors or
 horizontal overflow.
 
-The source repository is publicly reachable, but the binaries are not yet a
-public release. The Windows files are temporary GitHub Actions artifacts, not a
-GitHub Release or Store listing. The hosted installer lifecycle is not a clean
-consumer Windows 10/11 test. No trusted Authenticode identity, full uninstall
-residue audit, WACK result, Partner Center package, Store certification, or
-Store availability evidence exists.
+The source repository and reviewed `v0.1.0` Windows x64 GitHub pre-release are
+publicly reachable. The tagged installer, ZIP, and checksum file were downloaded
+and rehashed before publication, and their unauthenticated endpoints returned
+HTTP 200 afterward. The hosted installer lifecycle is not a clean consumer
+Windows 10/11 test. No trusted Authenticode identity, full uninstall residue
+audit, WACK result, Partner Center package, Store certification, or Store
+availability evidence exists.
 
 The earlier macOS artifact and development benchmarks were produced when no
 frozen Git commit existed. Creating and publishing the repository later does
 not retroactively freeze or identify the exact source snapshot that produced
 those historical artifacts. The frozen commits apply only to their respective
-Windows preflight records.
+Windows preflight and tagged-release records.
 
 ## Gate state
 
 | Gate | State | Evidence boundary |
 |---|---|---|
-| Public source | PASS — source only | On 2026-08-31 an unauthenticated request returned HTTP 200 and public `main` resolved to `612a618a3de36ab53865354f9e8f0a5e9a05c26a`. |
+| Public source | PASS | The repository returned HTTP 200 without authentication; annotated tag `v0.1.0` resolves to frozen commit `b2a226ac9e2623ba210a192095d2feb2eb7dacf4`. |
 | Historical Mac source freeze | NOT ESTABLISHED | No commit or tag existed when the earlier DMG and benchmark artifacts were built. Current Git history does not retroactively freeze them. |
 | Windows installer-preflight source freeze | PASS — preflight only | Run `33406656618` checked out and built commit `612a618a3de36ab53865354f9e8f0a5e9a05c26a`. |
 | Historical Mac build | PASS — recorded snapshot | Production renderer, Electron source, icon, and PyInstaller arm64 sidecar built successfully. |
-| Windows build | PASS — recorded runner | A Windows x64 sidecar, NSIS installer, ZIP, and matching `win-unpacked` application were created successfully. |
-| Regression tests | PASS — defined scope | Historical Mac record: 14/14 frontend and 14/14 engine tests. Windows preflight: 17/17 renderer/path tests and 15/15 engine tests. |
-| Dependency audit | PASS — recorded npm advisory checks | `npm audit` and `npm audit --omit=dev` reported 0 known vulnerabilities at the historical Mac test time; Source validation for commit `612a618a…` repeated the production-dependency audit successfully. |
+| Tagged Windows build | PASS — recorded runner | Run `33409332005` created the Windows x64 sidecar, NSIS installer, ZIP, and matching `win-unpacked` application from the frozen tag. |
+| Regression tests | PASS — defined scope | Historical Mac record: 14/14 frontend and 14/14 engine tests. Tagged Windows run: 17/17 renderer/path tests and 15/15 engine tests. |
+| Dependency audit | PASS — recorded npm advisory checks | `npm audit` and `npm audit --omit=dev` reported 0 known vulnerabilities at the historical Mac test time; tagged-commit Source validation run `33409072874` repeated the production-dependency audit successfully. |
 | Visual smoke | PASS — recorded environments | Historical Mac captures and four packaged Windows 1366 × 768 captures reported no horizontal overflow or captured console error. |
 | Development benchmark | TESTED — DEVELOPMENT ONLY | 250 stochastic replications per implemented family; F05 warning fixtures 3/3; F09 safety fixtures 7/7; DiD not implemented. This is not a formal holdout. |
 | Historical Mac package | PASS | The DMG was created, hashed, mounted, and validated with `hdiutil verify`. |
-| Windows installer-preflight packages | PASS | The NSIS installer and ZIP were created and hashed; downloaded copies matched the workflow checksum file and ZIP integrity testing passed. |
+| Tagged Windows packages | PASS | The public NSIS installer and ZIP were created and hashed; downloaded copies matched the portable checksum file and ZIP integrity testing passed. |
 | Exact packaged workflow | PASS — recorded environments | The mounted DMG ran on its build Mac. The NSIS-installed `CausalPilot AI.exe` and matching `win-unpacked` app ran on the GitHub-hosted Windows runner. In both platforms the native chooser return was stubbed only inside the disposable test process. |
 | Hosted installer lifecycle | PASS — runner smoke only | Silent install and uninstall both returned 0; the installed workflow passed and the main executable was removed. This is not a clean consumer-device test or complete residue audit. |
 | Clean-target installation | NOT ESTABLISHED | No separate clean Mac, consumer Windows 10/11 device, fresh user profile, interactive installer flow, reinstall, or upgrade was tested. |
 | macOS signing integrity | PASS — ad-hoc only | `codesign --verify --deep --strict` passed for the app inside the DMG; `spctl` rejected it. This is not identity assurance. |
 | Windows trusted signing | NOT ACHIEVED | No Authenticode certificate or trusted publisher identity was configured; unknown-publisher or SmartScreen warnings remain possible. |
 | Store package / WACK | NOT ACHIEVED | No exact Partner Center identity, final AppX, Store install, WACK result, submission, or certification record exists. |
-| Public binary availability | NOT ESTABLISHED | The source repository is public, but there is no public GitHub Release download or live Microsoft Store listing for these binaries. |
+| Public binary availability | PASS — GitHub pre-release only | The reviewed `v0.1.0` Windows installer, ZIP, and checksum file are publicly downloadable; unauthenticated release and asset endpoints returned HTTP 200. Microsoft Store availability is not established. |
 
 ## Exact artifact identity
 
@@ -117,8 +118,26 @@ rebuilt and must publish its own authoritative checksum file.
 
 This later run added silent install, installed-app E2E/export, silent uninstall,
 and main-executable removal checks. Its temporary artifacts were also configured
-for 30-day retention. The public tagged build, when created, must use its own
-attached checksum file.
+for 30-day retention. The independently rebuilt public tag is recorded below
+with its own authoritative checksum file.
+
+### Public tagged Windows x64 preview — v0.1.0
+
+- Tagged commit: `b2a226ac9e2623ba210a192095d2feb2eb7dacf4`
+- Tagged workflow: `33409332005`
+- Published: `2026-08-31T15:46:21Z`
+- Release URL: `https://github.com/lzy2767865503-pixel/causalpilot-ai/releases/tag/v0.1.0`
+- Installer bytes: `123901221`
+- Installer SHA-256: `3d8f12ea5dc999cd014710ef78c7e6dcce467a2aa20c5a609f37ca35b116a0ce`
+- ZIP bytes: `166545543`
+- ZIP SHA-256: `76fca35d57595f480a06c4e89d51e28b4f8e424d3e737a26ffdbe84ae508d790`
+- Portable checksum-file SHA-256: `a5f7d3e448f98b7556ce58c4586f9939a6576afd97733d8ec88562470391229a`
+
+The tagged build repeated all installer lifecycle and packaged-workflow checks.
+The draft assets were downloaded and independently rehashed; the checksum file
+was normalized from CRLF to LF before publication without changing either
+binary. Full details are in
+[`windows/v0.1.0/github-release-record.md`](windows/v0.1.0/github-release-record.md).
 
 ## Preserved Windows evidence
 
@@ -134,6 +153,10 @@ attached checksum file.
 - [`windows/nsis-install-uninstall-preflight-report.json`](windows/nsis-install-uninstall-preflight-report.json)
 - [`windows/packaged-e2e-installed-preflight-report.json`](windows/packaged-e2e-installed-preflight-report.json)
 - [`windows/SHA256SUMS-windows-installer-preflight.txt`](windows/SHA256SUMS-windows-installer-preflight.txt)
+- [`windows/v0.1.0/github-release-record.md`](windows/v0.1.0/github-release-record.md)
+- [`windows/v0.1.0/SHA256SUMS-windows.txt`](windows/v0.1.0/SHA256SUMS-windows.txt)
+- [`windows/v0.1.0/nsis-install-uninstall-report.json`](windows/v0.1.0/nsis-install-uninstall-report.json)
+- [`windows/v0.1.0/packaged-e2e-installed-report.json`](windows/v0.1.0/packaged-e2e-installed-report.json)
 
 ## Authorship surfaces verified
 
@@ -149,11 +172,11 @@ deterministic offline engine for declared two-arm randomized experiments with
 binary risk-difference and continuous Welch analyses, SRM and data-quality
 diagnostics, structured individual-employment-decision refusal, a
 practical-effect threshold, and aggregate evidence export. It was exercised in
-the recorded historical Mac workflow and frozen-commit Windows x64 package and
-installer preflights.
+the recorded historical Mac workflow, frozen-commit Windows x64 preflights, and
+the tagged public `v0.1.0` Windows preview.
 
 Do not claim formal holdout validation, general causal validity, observational
 causal identification, Difference-in-Differences, real client impact, adoption,
 production readiness, clean-device Windows 10/11 compatibility, trusted Windows
-signing, WACK approval, Apple notarization, a public binary release, Microsoft
-Store certification, or Microsoft Store availability.
+signing, WACK approval, Apple notarization, Microsoft Store certification, or
+Microsoft Store availability.

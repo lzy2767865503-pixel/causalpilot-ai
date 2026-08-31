@@ -77,7 +77,11 @@ jobs:
             $hash = (Get-FileHash -LiteralPath $artifact -Algorithm SHA256).Hash.ToLowerInvariant()
             "$hash  $([System.IO.Path]::GetFileName($artifact))"
           }
-          Set-Content -LiteralPath "release/SHA256SUMS-windows.txt" -Value $checksumLines -Encoding utf8NoBOM
+          [System.IO.File]::WriteAllText(
+            (Join-Path $PWD "release/SHA256SUMS-windows.txt"),
+            (($checksumLines -join "`n") + "`n"),
+            [System.Text.UTF8Encoding]::new($false)
+          )
           Get-Content -LiteralPath "release/SHA256SUMS-windows.txt"
       - name: Upload verified distributions
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7

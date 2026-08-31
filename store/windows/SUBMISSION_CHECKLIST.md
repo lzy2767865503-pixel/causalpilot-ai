@@ -19,16 +19,16 @@ Current state: the full name was observed as available but is **PENDING_NAME_RES
 ## 2. Source and licence
 
 - [x] Public GitHub repository exists: `https://github.com/lzy2767865503-pixel/causalpilot-ai`
-- [ ] Release commit and tag are frozen
-- [ ] Working tree is clean at build time
+- [x] Release commit and annotated tag `v0.1.0` are frozen at `b2a226ac9e2623ba210a192095d2feb2eb7dacf4`
+- [x] Tagged GitHub build checked out the exact frozen tag in a clean hosted workspace
 - [x] MIT `LICENSE` is present and names Copyright © 2026 LAI ZEYU (来泽宇)
 - [x] `AUTHORS.md` and `NOTICE.md` are present in the public repository
-- [ ] Packaged app contains the intended licence/authorship notices
-- [ ] Source archive/release matches the tagged commit
+- [x] Direct-download GitHub package contains the intended licence/authorship notices; final Store AppX remains a separate inspection gate
+- [x] Public source archive and tagged GitHub release resolve to the frozen `v0.1.0` commit
 - [x] AI-assistance disclosure is present and remains accurate for the current public source
 - [x] Private vulnerability reporting is enabled and `SECURITY.md` provides the reporting policy
 
-Current state: the public repository, MIT licence, authorship/notices, privacy/support content, AI-assistance disclosure, and private vulnerability-reporting route exist. No release tag is present, and the final Store AppX has not been inspected for packaged licence/authorship parity.
+Current state: the annotated `v0.1.0` tag, public source archive, reviewed GitHub Windows x64 pre-release, MIT licence, packaged direct-download authorship/notices, privacy/support content, AI-assistance disclosure, and private vulnerability-reporting route exist. This closes the GitHub-release source/licence gate only; the final Store AppX has not been created or inspected for packaged licence/authorship parity.
 
 ## 3. Windows package
 
@@ -43,14 +43,14 @@ Current state: the public repository, MIT licence, authorship/notices, privacy/s
 - [ ] Final candidate hash and byte size recorded
 - [ ] Final candidate copied to immutable release storage
 
-Current state: GitHub Actions run `33406656618` built the Windows distributions at commit `612a618a3de36ab53865354f9e8f0a5e9a05c26a`, silently installed the NSIS package, exercised the installed application, silently uninstalled it, and confirmed removal of the installed executable on Windows Server 2022 x64. This closes an automated Windows install/workflow/uninstall preflight gate only. The Partner Center-identity-bound final Store AppX remains **PENDING_FINAL_STORE_APPX**.
+Current state: GitHub Actions run `33409332005` built the public Windows distributions from tagged commit `b2a226ac9e2623ba210a192095d2feb2eb7dacf4`, silently installed the NSIS package, exercised the installed application, silently uninstalled it, and confirmed removal of the installed executable on Windows Server 2022 x64. The reviewed public installer is 123,901,221 bytes with SHA-256 `3d8f12ea5dc999cd014710ef78c7e6dcce467a2aa20c5a609f37ca35b116a0ce`. This closes the direct-download GitHub preview package gate only. All Store-package checklist items above remain open, and the Partner Center-identity-bound final Store AppX remains **PENDING_FINAL_STORE_APPX**.
 
 ## 4. Compatibility and runtime QA
 
 - [ ] Install from the final package on Windows 10 22H2 x64 or the oldest supported practical target
 - [ ] Install from the final package on Windows 11 24H2 x64
 - [ ] Launch as a standard user
-- [x] Automated NSIS preflight on run `33406656618`: silent install returned 0, the installed packaged workflow completed, silent uninstall returned 0, and the installed executable was removed
+- [x] Automated tagged-package lifecycle on run `33409332005`: silent install returned 0, the installed packaged workflow completed, silent uninstall returned 0, and the installed executable was removed
 - [ ] Built-in synthetic workflow completes
 - [ ] Native CSV chooser works
 - [ ] Valid binary CSV analysis completes
@@ -71,7 +71,7 @@ Current state: automated NSIS silent install, installed-app workflow, silent uni
 
 - [ ] Windows App Certification Kit run against the final package; report preserved
 - [ ] Microsoft Defender or equivalent consumer antivirus scan run; report preserved
-- [x] Preflight NSIS install/workflow/uninstall report reviewed for run `33406656618`
+- [x] Tagged NSIS install/workflow/uninstall report reviewed for run `33409332005`
 - [ ] Package install/uninstall logs reviewed
 - [ ] Package capability list is minimal and matches product behavior
 - [ ] Restricted capabilities absent or separately justified
@@ -80,13 +80,13 @@ Current state: automated NSIS silent install, installed-app workflow, silent uni
 - [ ] Network observation on Windows confirms no app analysis traffic in the tested configuration
 - [ ] Temporary-file and retention behavior reviewed on Windows
 
-Current state: a successful direct Windows packaged preflight exists, but WACK, Defender, package install/uninstall logs, independent network observation, Windows retention review, restricted-capability review for the final identity-bound package, and final Store AppX inspection remain pending.
+Current state: a reviewed public tagged GitHub Windows preview exists, but WACK, Defender, package install/uninstall logs, independent network observation, Windows retention review, restricted-capability review for the final identity-bound package, and final Store AppX inspection remain pending.
 
 ## 6. Store metadata and public pages
 
 - [ ] English listing copy reviewed against the exact package
 - [ ] At least four final Windows screenshots captured and hashed
-- [x] Four 1366 × 768 packaged Windows preflight screenshots captured in run `33406656618`; these are not final Store AppX screenshots
+- [x] Four 1366 × 768 tagged packaged Windows screenshots captured in run `33409332005`; these are not final Store AppX screenshots
 - [ ] 300 × 300 Store tile inspected
 - [ ] Optional Chinese listing explicitly says the UI is English
 - [x] Public privacy policy exists in the public repository
@@ -100,7 +100,7 @@ Current state: a successful direct Windows packaged preflight exists, but WACK, 
 - [ ] “Tested accessible” remains unchecked unless substantiated
 - [ ] Price, markets, discoverability, and release hold intentionally chosen
 
-Current state: public metadata/support foundations exist, and four packaged-preflight screenshots are preserved. The English listing still requires review against the final Store AppX; final AppX screenshots, Store tile review, IARC output, pricing/markets/release choices, and Partner Center completion remain pending.
+Current state: public metadata/support foundations exist, the public GitHub preview is available at `https://github.com/lzy2767865503-pixel/causalpilot-ai/releases/tag/v0.1.0`, and four tagged-package screenshots are preserved. The English listing still requires review against the final Store AppX; final AppX screenshots, Store tile review, IARC output, pricing/markets/release choices, and Partner Center completion remain pending.
 
 ## 7. Partner Center upload and certification
 

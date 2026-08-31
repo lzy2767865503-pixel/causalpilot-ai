@@ -1,0 +1,29 @@
+{
+  "status": "validated_nsis_install_launch_uninstall",
+  "author": "LAI ZEYU (来泽宇)",
+  "testedAt": "2026-08-31T15:39:45.3422223Z",
+  "platform": {
+    "operatingSystem": "Microsoft Windows NT 10.0.20348.0",
+    "architecture": "X64"
+  },
+  "installer": {
+    "name": "CausalPilot-AI-0.1.0-windows-x64-setup.exe",
+    "sha256": "3d8f12ea5dc999cd014710ef78c7e6dcce467a2aa20c5a609f37ca35b116a0ce",
+    "silentInstallExitCode": 0,
+    "installStartedAt": "2026-08-31T15:39:24.4458392Z"
+  },
+  "installedApplication": {
+    "executableName": "CausalPilot AI.exe",
+    "packagedE2eReport": "packaged-e2e-installed-report.json",
+    "bundledLocalEngineExercised": true,
+    "unicodeInputPathExercised": true,
+    "aggregateEvidenceExportExercised": true
+  },
+  "uninstaller": {
+    "executableName": "Uninstall CausalPilot AI.exe",
+    "silentUninstallExitCode": 0,
+    "uninstallStartedAt": "2026-08-31T15:39:43.9098811Z",
+    "installedApplicationRemoved": true
+  },
+  "boundary": "This is an automated install, packaged-workflow, and uninstall smoke test on the recorded GitHub-hosted Windows runner. It is not a clean consumer-device, signing, SmartScreen, WACK, Defender, or broad Windows compatibility certification."
+}
