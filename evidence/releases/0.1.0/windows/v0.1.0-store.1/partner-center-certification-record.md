@@ -50,6 +50,21 @@ It visibly records the product name, `In certification` status, completed
 Submission step, active Pre-processing step, future Certification/Publishing
 steps, and automatic-publishing statement.
 
+## Certification-stage update
+
+At 2026-09-01 01:35 MYT, a fresh portal reload showed progress at step 3 of 4:
+
+1. Submission — **Complete**
+2. Pre-processing — **Complete**
+3. Certification — **In progress**
+4. Publishing — **Not started**
+
+The capture `partner-center-certification-in-progress.png` is `80178` bytes
+with SHA-256
+`ed1540597f3b0bba7d9fa820a44fb71e6a78056790fb5c89345692ccb1036fd7`.
+It visibly records both completed earlier steps, active Certification, future
+Publishing, and the automatic-publishing statement.
+
 ## Evidence boundary
 
 `In certification` proves that Microsoft accepted the submission into its

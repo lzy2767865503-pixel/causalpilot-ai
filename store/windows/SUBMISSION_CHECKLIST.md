@@ -124,7 +124,7 @@ Current state: Pricing and availability, Properties, IARC age ratings, Submissio
 - [x] Submission sent for certification on 2026-09-01; Partner Center reports `In certification`
 - [x] Draft submission ID `1152921505701778491`, record date, and Partner Center overview screenshot preserved
 
-Current state: **In certification — Submission complete; Pre-processing in progress at the first post-submit observation.** Automatic publishing remains scheduled only after a successful certification result. Do not describe this state as certified, published, or live.
+Current state: **In certification — Submission and Pre-processing complete; Certification in progress; Publishing not started.** Automatic publishing remains scheduled only after a successful certification result. Do not describe this state as certified, published, or live.
 
 ## 8. Publication verification
 
