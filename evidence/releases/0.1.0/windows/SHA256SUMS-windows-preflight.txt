@@ -1,0 +1,2 @@
+1af7f1f947eb83b7b98d43dd881ab03711b1bc44861cfdf9393376df60021e26  CausalPilot-AI-0.1.0-windows-x64-setup.exe
+bb1c986910e727b0f00f581abafdcb7a39aacd641b256a4d7b382d1b591f882d  CausalPilot-AI-0.1.0-windows-x64.zip

@@ -18,16 +18,17 @@ Current state: the full name was observed as available but is **PENDING_NAME_RES
 
 ## 2. Source and licence
 
-- [ ] Public GitHub repository exists
+- [x] Public GitHub repository exists: `https://github.com/lzy2767865503-pixel/causalpilot-ai`
 - [ ] Release commit and tag are frozen
 - [ ] Working tree is clean at build time
-- [ ] MIT `LICENSE` is present and names Copyright © 2026 LAI ZEYU (来泽宇)
-- [ ] `AUTHORS.md` and `NOTICE.md` are present
+- [x] MIT `LICENSE` is present and names Copyright © 2026 LAI ZEYU (来泽宇)
+- [x] `AUTHORS.md` and `NOTICE.md` are present in the public repository
 - [ ] Packaged app contains the intended licence/authorship notices
 - [ ] Source archive/release matches the tagged commit
-- [ ] AI-assistance disclosure remains accurate
+- [x] AI-assistance disclosure is present and remains accurate for the current public source
+- [x] Private vulnerability reporting is enabled and `SECURITY.md` provides the reporting policy
 
-Current state: repository work is being prepared; **no public URL should be inferred until verified**.
+Current state: the public repository, MIT licence, authorship/notices, privacy/support content, AI-assistance disclosure, and private vulnerability-reporting route exist. No release tag is present, and the final Store AppX has not been inspected for packaged licence/authorship parity.
 
 ## 3. Windows package
 
@@ -42,7 +43,7 @@ Current state: repository work is being prepared; **no public URL should be infe
 - [ ] Final candidate hash and byte size recorded
 - [ ] Final candidate copied to immutable release storage
 
-Current state: **PENDING_WINDOWS_PACKAGE_EVIDENCE**
+Current state: GitHub Actions run `33403432371` produced and hashed an NSIS installer and ZIP at commit `f9b0d72716e4958f5b1d523eb926451707437dc6`, and exercised the packaged `win-unpacked` application directly on Windows Server 2022 x64. This closes a Windows packaged-preflight gate only. The Partner Center-identity-bound final Store AppX remains **PENDING_FINAL_STORE_APPX**.
 
 ## 4. Compatibility and runtime QA
 
@@ -63,7 +64,7 @@ Current state: **PENDING_WINDOWS_PACKAGE_EVIDENCE**
 - [ ] Window at minimum supported size has no inaccessible controls or horizontal clipping
 - [ ] Keyboard-only smoke and screen-reader labels reviewed; do not claim accessibility certification unless the named standard passes
 
-Current state: **not established by macOS evidence**.
+Current state: direct Windows preflight passed 17 renderer/Electron/path-contract tests, 15 engine tests, bundled-sidecar execution, the packaged synthetic binary workflow, and aggregate JSON/HTML export. Four packaged screenshots showed no captured renderer errors or horizontal overflow at 1366 × 768. The native chooser return was stubbed only in the disposable test process. Consumer Windows 10/11 clean install, real chooser interaction, standard-user install, uninstall/reinstall, continuous packaged analysis, offline observation, high-DPI, accessibility, and broader compatibility remain open.
 
 ## 5. Store certification preparation
 
@@ -77,17 +78,19 @@ Current state: **not established by macOS evidence**.
 - [ ] Network observation on Windows confirms no app analysis traffic in the tested configuration
 - [ ] Temporary-file and retention behavior reviewed on Windows
 
-Current state: pending Windows runner and package identity.
+Current state: a successful direct Windows packaged preflight exists, but WACK, Defender, package install/uninstall logs, independent network observation, Windows retention review, restricted-capability review for the final identity-bound package, and final Store AppX inspection remain pending.
 
 ## 6. Store metadata and public pages
 
 - [ ] English listing copy reviewed against the exact package
 - [ ] At least four final Windows screenshots captured and hashed
+- [x] Four 1366 × 768 packaged Windows **preflight** screenshots captured and hashed; these are not final Store AppX screenshots
 - [ ] 300 × 300 Store tile inspected
 - [ ] Optional Chinese listing explicitly says the UI is English
-- [ ] Public privacy policy URL opens without login
-- [ ] Public support URL opens without login
-- [ ] Public repository/licence URL opens without login
+- [x] Public privacy policy exists in the public repository
+- [x] Public support page and issue intake exist in the public repository
+- [x] Public repository, MIT licence, authorship, and notices are available
+- [x] Private vulnerability-reporting form is enabled
 - [ ] Category is Business → Data + analytics
 - [ ] Generative-AI declaration is No for 0.1.0
 - [ ] Privacy question is Yes because the app accesses a user-selected file
@@ -95,7 +98,7 @@ Current state: pending Windows runner and package identity.
 - [ ] “Tested accessible” remains unchecked unless substantiated
 - [ ] Price, markets, discoverability, and release hold intentionally chosen
 
-Current state: copy prepared; public URLs and screenshots pending.
+Current state: public metadata/support foundations exist, and four packaged-preflight screenshots are preserved. The English listing still requires review against the final Store AppX; final AppX screenshots, Store tile review, IARC output, pricing/markets/release choices, and Partner Center completion remain pending.
 
 ## 7. Partner Center upload and certification
 

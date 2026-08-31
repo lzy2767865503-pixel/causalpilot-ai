@@ -3,7 +3,9 @@
 **Offline experiment analysis and evidence export for desktop**  
 Product author and accountable owner: **LAI ZEYU (来泽宇)**
 
-CausalPilot AI `0.1.0` is a working, offline-first desktop MVP for **declared randomized two-arm business experiments**. The packaged macOS workflow has been exercised end to end. A Windows x64 source, packaging, and CI candidate is also present, but it has not yet produced preserved Windows-runner, installation, signing, WACK, or Microsoft Store evidence. In the desktop workflow, a user can select a CSV, map the experiment fields, confirm the assignment design, run a deterministic local analysis, review effect size and uncertainty alongside quality diagnostics, and export an aggregate evidence bundle.
+CausalPilot AI `0.1.0` is a working, offline-first desktop MVP for **declared randomized two-arm business experiments**. The packaged macOS workflow has been exercised end to end, and a Windows x64 package preflight has passed on a GitHub-hosted Windows Server 2022 runner. That preflight is not clean-device Windows 10/11 installation, signing, WACK, or Microsoft Store evidence. In the desktop workflow, a user can select a CSV, map the experiment fields, confirm the assignment design, run a deterministic local analysis, review effect size and uncertainty alongside quality diagnostics, and export an aggregate evidence bundle.
+
+Public source repository: [github.com/lzy2767865503-pixel/causalpilot-ai](https://github.com/lzy2767865503-pixel/causalpilot-ai)
 
 The packaged analysis path does **not** start an HTTP or localhost analysis service. Electron invokes a bundled Python sidecar directly with fixed process arguments and JSON over standard input/output. Raw experiment rows remain on the user's device during this workflow. There is no account, cloud sync, telemetry integration, external AI call, or runtime language model in version `0.1.0`.
 
@@ -11,7 +13,7 @@ The packaged analysis path does **not** start an HTTP or localhost analysis serv
 
 > **Release boundary:** an Apple-silicon DMG was built, hashed, mounted read-only, and exercised end to end on the build Mac. Its ad-hoc bundle signature passes strict on-disk verification, but it is **not** Apple Developer ID signed or notarized, Gatekeeper assessment rejects it, and no clean-device installation or public availability claim has been established. See [`evidence/releases/0.1.0/release-summary.md`](evidence/releases/0.1.0/release-summary.md).
 
-> **Windows boundary:** Windows x64 build scripts, an unpacked-app test path, four packaged-screenshot checks, and a GitHub Actions draft-release workflow are defined. They are release infrastructure, not proof of a successful Windows build. No Windows artifact hash or compatibility claim is valid until the workflow runs and its result is reviewed on Windows. Microsoft Store submission remains a separate gate.
+> **Windows boundary:** [GitHub Actions preflight 33403432371](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33403432371) passed at commit [`f9b0d72716e4958f5b1d523eb926451707437dc6`](https://github.com/lzy2767865503-pixel/causalpilot-ai/commit/f9b0d72716e4958f5b1d523eb926451707437dc6) on a hosted Windows Server 2022 x64 runner. It built the sidecar, NSIS installer, ZIP and unpacked application, then exercised the unpacked packaged workflow and captured four 1366 × 768 screenshots. It did **not** install the NSIS package on a clean Windows 10/11 device, validate the native chooser, establish consumer-Windows compatibility, apply a trusted publisher signature, run WACK, bind a Partner Center identity, upload to Microsoft Store, or publish a public binary release.
 
 ## What the working MVP does
 
@@ -66,7 +68,7 @@ More detail is available in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [
 - Node.js and npm
 - Python `3.9` or newer for the development-side engine
 - macOS for the currently verified Electron package; that generated artifact is Apple silicon (`arm64`) only
-- Windows x64 for the prepared Windows package and Store-capture workflow; Windows 10/11 compatibility remains unverified until preserved Windows evidence exists
+- Windows x64 for the Windows package and capture workflow; a hosted Windows Server 2022 preflight passed, while clean Windows 10/11 installation and compatibility remain unverified
 
 Install the locked JavaScript dependencies and start the desktop development workflow:
 
@@ -134,10 +136,13 @@ npm run qa:packaged
 npm run qa:windows-store-captures
 ```
 
-The expected names are
-`CausalPilot-AI-0.1.0-windows-x64-setup.exe` and
-`CausalPilot-AI-0.1.0-windows-x64.zip`. They are expectations defined by the
-configuration, not evidence that those files have been produced or tested.
+Preflight 33403432371 produced these temporary GitHub Actions artifacts:
+
+- `CausalPilot-AI-0.1.0-windows-x64-setup.exe` — SHA-256 `1af7f1f947eb83b7b98d43dd881ab03711b1bc44861cfdf9393376df60021e26`
+- `CausalPilot-AI-0.1.0-windows-x64.zip` — SHA-256 `bb1c986910e727b0f00f581abafdcb7a39aacd641b256a4d7b382d1b591f882d`
+
+These CI artifacts are retained temporarily and are not a published GitHub
+binary release or Microsoft Store package.
 Store packaging uses the separate `npm run package:win:store` path, which
 fails closed until exact Partner Center identity values are supplied. See
 [`store/windows/README.md`](store/windows/README.md).
@@ -150,10 +155,16 @@ uploads validation artifacts to GitHub Actions. Pushing the exact `v0.1.0` tag
 creates or updates a **draft** GitHub release only after the Windows build and
 packaged checks pass; it refuses to overwrite an already published release.
 
-The workflows have been parsed locally with `actionlint`, but they have not run
-on GitHub because no public repository or first commit has yet been established.
-Follow [`.github/OPEN_SOURCE_CHECKLIST.md`](.github/OPEN_SOURCE_CHECKLIST.md)
-before making a repository or release public.
+The source repository is public. At commit `f9b0d72716e4958f5b1d523eb926451707437dc6`,
+the Source validation, Security review, and Windows x64 preflight workflows all
+completed successfully. Private vulnerability reporting, secret scanning, and
+secret-scanning push protection are enabled. Branch protection and Dependabot
+security updates were not enabled at the time of this evidence snapshot.
+
+The successful manual Windows run uploaded temporary Actions artifacts; its
+draft-release job was intentionally skipped because it was not triggered by a
+`v0.1.0` tag. Follow [`.github/OPEN_SOURCE_CHECKLIST.md`](.github/OPEN_SOURCE_CHECKLIST.md)
+before publishing a binary release.
 
 ## CSV and engine contract
 
@@ -223,15 +234,23 @@ Observed results:
 
 - Production frontend and Electron TypeScript build completed.
 - Frontend/component suite: **4 test files, 17 tests passed**.
-- Deterministic engine suite: **14 tests passed**.
-- The frontend suite includes platform-path contract checks; those checks do
-  not substitute for executing the packaged application on Windows.
+- Deterministic engine suite: **15 tests passed** in the current Windows preflight.
+- The frontend suite includes platform-path contract checks. The Windows
+  preflight additionally launched the packaged `win32`/`x64` executable from
+  `win-unpacked`, but did not install the NSIS package on a clean target.
 - Engine tests cover the binary golden result, SRM blocking, duplicate-unit blocking, missing-outcome and sparse-binary warnings, deterministic reruns, continuous Welch analysis, attested CUPED, one-shot/JSONL CLI contracts, reproducible synthetic generation, required decision targets, and structured rejection of individual employment decisions.
 - [`design/qa/visual-smoke-report.json`](design/qa/visual-smoke-report.json) records desktop/mobile geometry with no horizontal overflow and no captured console errors.
 - [`design/qa/packaged-e2e-report.json`](design/qa/packaged-e2e-report.json) records the exact application launched from the read-only mounted DMG, using the bundled local engine with no captured console errors. Its native chooser response was stubbed only in the disposable test process; production tokenization, request validation, packaged-sidecar execution, result rendering, and aggregate JSON/HTML evidence export were exercised.
+- Windows preflight 33403432371 passed 17 frontend tests and 15 engine tests,
+  the Unicode-path sidecar smoke, packaged CSV import and deterministic analysis,
+  aggregate JSON/HTML export, and four exact 1366 × 768 captures. Its packaged
+  report recorded `win32`/`x64`, local-engine mode, no horizontal overflow, no
+  console errors, the frozen dataset hash, correct `LAI ZEYU (来泽宇)` attribution,
+  and no recognized raw-row collection in the export. The native chooser return
+  was stubbed in the disposable test process.
 - [`evidence/results/causalpilot-benchmark-v0.1-planning/current-mvp-development-v0.2.json`](evidence/results/causalpilot-benchmark-v0.1-planning/current-mvp-development-v0.2.json) records 250 stochastic development replications per implemented family, sparse-warning fixtures 3/3, and predefined safety fixtures 7/7. It explicitly leaves Difference-in-Differences unimplemented and is not a formal holdout run.
 
-These are targeted implementation and regression checks. They are **not** a formal statistical holdout benchmark, external scientific review, penetration test, clean-device installation test, or compatibility claim for every Mac.
+These are targeted implementation and regression checks. They are **not** a formal statistical holdout benchmark, external scientific review, penetration test, clean-device installation test, or broad macOS/Windows compatibility claim.
 
 To run the engine tests from a fresh checkout:
 
@@ -247,15 +266,15 @@ This table describes the audited working copy, not a public release declaration.
 
 | Gate or claim | Current evidence | Status boundary |
 |---|---|---|
-| Source and build | Source is present; `npm run build` and `npm run package:mac` completed on 2026-08-31 | No tagged/frozen source commit exists; formal holdout correctly remains closed |
-| Targeted automated tests | 17 frontend tests and 14 engine tests passed in the audited working copy | Does not substitute for formal holdout, security, or broad compatibility testing |
+| Source and build | Public MIT source at commit `f9b0d72716e4958f5b1d523eb926451707437dc6`; source/security workflows and Windows preflight passed | No `v0.1.0` release tag or public binary release; formal holdout remains closed |
+| Targeted automated tests | 17 frontend tests and 15 engine tests passed in Windows preflight 33403432371 | Does not substitute for formal holdout, penetration testing, clean installation, or broad compatibility testing |
 | Visual smoke | Preserved desktop/mobile screenshots and machine-readable smoke report | Browser-based visual review only |
 | Packaged local workflow | The exact app inside the mounted DMG completed import, local analysis, result rendering, and aggregate export on the current Mac | `arm64` current-machine evidence only; chooser response was stubbed in the disposable E2E process |
 | Development benchmark | v0.2 development artifact saved; 250 stochastic replications per implemented family; F05 3/3 and F09 7/7 fixtures | **Not formal holdout.** Formal targets remain planned; DiD remains unimplemented |
 | Distribution package | `CausalPilot-AI-0.1.0-arm64.dmg`, 135,791,674 bytes, SHA-256 `c5e6d6561cc9db3c210cd4b2608aa1fe4d14d1e9223c34eab03ee43e2176bdf2`; `hdiutil verify` passed | Packaged artifact only; Apple Silicon and macOS 13+ boundary |
-| Windows x64 candidate | Cross-platform scripts, Electron targets, Store-identity fail-closed configuration, and GitHub workflow are present | **Prepared, not built or validated on Windows.** No installer hash, install, WACK, signing, Store certification, or public-availability claim |
+| Windows x64 preflight | GitHub-hosted Windows Server 2022 run 33403432371 built NSIS/ZIP/unpacked outputs, passed sidecar and packaged E2E, exported evidence, captured four 1366 × 768 screens, and recorded SHA-256 values | **PACKAGED/TESTED in hosted CI only.** No clean Windows 10/11 install, native-chooser proof, trusted signing, WACK, Partner Center identity, Store certification, or public binary release |
 | Signing and notarization | Complete ad-hoc bundle signature passes strict `codesign` verification; `spctl` rejects it | **Not Developer ID signed and not notarized** |
-| Clean installation and public availability | No preserved evidence | **Not established**; no Store, download, adoption, or production-use claim |
+| Clean installation and public availability | Public source repository exists; no clean-target installation or public binary release exists | Source publication does not establish a downloadable app release, Store availability, adoption, or production use |
 
 ## Evidence discipline
 
