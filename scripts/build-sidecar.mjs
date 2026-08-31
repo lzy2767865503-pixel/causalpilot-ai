@@ -45,7 +45,12 @@ if (process.platform === "win32") {
       `The current Windows release target is x64; received host architecture ${process.arch}.`,
     );
   }
-  args.push("--version-file", path.join("build", "windows-sidecar-version.txt"));
+  // PyInstaller resolves this value from the generated spec-file directory,
+  // not consistently from `cwd`, so pass an absolute project path.
+  args.push(
+    "--version-file",
+    path.join(projectRoot, "build", "windows-sidecar-version.txt"),
+  );
 }
 
 args.push(path.join("engine", "sidecar_entry.py"));
@@ -71,4 +76,3 @@ child.once("close", (code, signal) => {
     process.exitCode = code || 1;
   }
 });
-
