@@ -49,7 +49,10 @@ try {
   await page.setViewportSize({ width: 1366, height: 768 });
 
   await page.getByRole("heading", { name: "Experiment Summary" }).waitFor();
-  await page.getByRole("button", { name: "Overview", exact: true }).click();
+  const primaryNavigation = page.getByLabel("Primary navigation");
+  await primaryNavigation
+    .getByRole("button", { name: "Overview", exact: true })
+    .click();
   await page.getByRole("heading", { name: "Evidence before explanation." }).waitFor();
   await page.screenshot({ path: screenshotPaths.overview, fullPage: false });
 
@@ -70,7 +73,9 @@ try {
     .nth(1)
     .getAttribute("title");
 
-  await page.getByRole("button", { name: "Reports", exact: true }).click();
+  await primaryNavigation
+    .getByRole("button", { name: "Reports", exact: true })
+    .click();
   await page.getByRole("heading", { name: "Evidence reports" }).waitFor();
   await page.screenshot({ path: screenshotPaths.reports, fullPage: false });
 
