@@ -252,6 +252,29 @@ def test_cli_one_shot_and_jsonl_contract(tmp_path):
     assert lines[1]["errors"][0]["code"] == "INVALID_JSON"
 
 
+def test_cli_decodes_utf8_bytes_when_console_encoding_is_cp1252(tmp_path):
+    csv_path = _write_rows(tmp_path / "实验 数据.csv", _valid_binary_rows())
+    request = _request(csv_path)
+    environment = dict(os.environ)
+    environment["PYTHONPATH"] = str(HERE.parent)
+    environment["PYTHONIOENCODING"] = "cp1252"
+    completed = subprocess.run(
+        [sys.executable, "-m", "causalpilot_engine.cli", "analyze"],
+        input=json.dumps(request, ensure_ascii=False).encode("utf-8"),
+        capture_output=True,
+        check=False,
+        env=environment,
+        cwd=str(HERE.parent),
+    )
+    assert completed.returncode == 0
+    assert completed.stderr == b""
+    assert completed.stdout.isascii()
+    result = json.loads(completed.stdout.decode("ascii"))
+    assert result["status"] == "ok"
+    assert result["dataset"]["filename"] == "实验 数据.csv"
+    assert result["engine"]["project_owner"] == "LAI ZEYU (来泽宇)"
+
+
 def test_synthetic_generator_is_reproducible(tmp_path):
     first_path = tmp_path / "synthetic-first.csv"
     second_path = tmp_path / "synthetic-second.csv"

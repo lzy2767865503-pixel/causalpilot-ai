@@ -18,6 +18,15 @@ from . import __version__
 from .analysis import analyze_request, error_result
 
 
+def _read_stdin_utf8() -> str:
+    """Decode the JSON protocol independently of the host console code page."""
+
+    buffer = getattr(sys.stdin, "buffer", None)
+    if buffer is None:
+        return sys.stdin.read()
+    return buffer.read().decode("utf-8")
+
+
 def _decode_request(raw: str, line_number: int = 1) -> Dict[str, Any]:
     if not raw.strip():
         return error_result(
@@ -81,15 +90,24 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Any = None) -> int:
     args = build_parser().parse_args(argv)
+    try:
+        raw_input = _read_stdin_utf8()
+    except UnicodeDecodeError:
+        result = error_result(
+            "STDIN_ENCODING_ERROR",
+            "The JSON request on stdin must be encoded as UTF-8.",
+        )
+        _emit(result, pretty=args.pretty)
+        return 2
+
     if args.mode == "jsonl":
-        for line_number, raw in enumerate(sys.stdin, start=1):
+        for line_number, raw in enumerate(raw_input.splitlines(), start=1):
             if not raw.strip():
                 continue
             _emit(_decode_request(raw, line_number=line_number), pretty=False)
         return 0
 
-    raw = sys.stdin.read()
-    result = _decode_request(raw)
+    result = _decode_request(raw_input)
     _emit(result, pretty=args.pretty)
     return 2 if result.get("status") == "error" else 0
 
