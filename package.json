@@ -24,11 +24,11 @@
     "qa:packaged": "node scripts/packaged-e2e.mjs",
     "qa:windows-store-captures": "node scripts/capture-packaged-windows.mjs",
     "desktop": "npm run build && electron .",
-    "package:mac:dir": "npm run build:icon && npm run build:sidecar && npm run build && electron-builder --mac dir --arm64",
-    "package:mac": "npm run build:icon && npm run build:sidecar && npm run build && electron-builder --mac dmg --arm64",
-    "package:win:dir": "npm run build:sidecar && npm run build && electron-builder --win dir --x64",
-    "package:win": "npm run build:sidecar && npm run build && electron-builder --win --x64",
-    "package:win:store": "npm run build:sidecar && npm run build && electron-builder --config electron-builder.store.cjs --win appx --x64"
+    "package:mac:dir": "npm run build:icon && npm run build:sidecar && npm run build && electron-builder --mac dir --arm64 --publish never",
+    "package:mac": "npm run build:icon && npm run build:sidecar && npm run build && electron-builder --mac dmg --arm64 --publish never",
+    "package:win:dir": "npm run build:sidecar && npm run build && electron-builder --win dir --x64 --publish never",
+    "package:win": "npm run build:sidecar && npm run build && electron-builder --win --x64 --publish never",
+    "package:win:store": "npm run build:sidecar && npm run build && electron-builder --config electron-builder.store.cjs --win appx --x64 --publish never"
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.8",
