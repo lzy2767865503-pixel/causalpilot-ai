@@ -43,13 +43,14 @@ Current state: the public repository, MIT licence, authorship/notices, privacy/s
 - [ ] Final candidate hash and byte size recorded
 - [ ] Final candidate copied to immutable release storage
 
-Current state: GitHub Actions run `33403432371` produced and hashed an NSIS installer and ZIP at commit `f9b0d72716e4958f5b1d523eb926451707437dc6`, and exercised the packaged `win-unpacked` application directly on Windows Server 2022 x64. This closes a Windows packaged-preflight gate only. The Partner Center-identity-bound final Store AppX remains **PENDING_FINAL_STORE_APPX**.
+Current state: GitHub Actions run `33406656618` built the Windows distributions at commit `612a618a3de36ab53865354f9e8f0a5e9a05c26a`, silently installed the NSIS package, exercised the installed application, silently uninstalled it, and confirmed removal of the installed executable on Windows Server 2022 x64. This closes an automated Windows install/workflow/uninstall preflight gate only. The Partner Center-identity-bound final Store AppX remains **PENDING_FINAL_STORE_APPX**.
 
 ## 4. Compatibility and runtime QA
 
 - [ ] Install from the final package on Windows 10 22H2 x64 or the oldest supported practical target
 - [ ] Install from the final package on Windows 11 24H2 x64
 - [ ] Launch as a standard user
+- [x] Automated NSIS preflight on run `33406656618`: silent install returned 0, the installed packaged workflow completed, silent uninstall returned 0, and the installed executable was removed
 - [ ] Built-in synthetic workflow completes
 - [ ] Native CSV chooser works
 - [ ] Valid binary CSV analysis completes
@@ -64,12 +65,13 @@ Current state: GitHub Actions run `33403432371` produced and hashed an NSIS inst
 - [ ] Window at minimum supported size has no inaccessible controls or horizontal clipping
 - [ ] Keyboard-only smoke and screen-reader labels reviewed; do not claim accessibility certification unless the named standard passes
 
-Current state: direct Windows preflight passed 17 renderer/Electron/path-contract tests, 15 engine tests, bundled-sidecar execution, the packaged synthetic binary workflow, and aggregate JSON/HTML export. Four packaged screenshots showed no captured renderer errors or horizontal overflow at 1366 × 768. The native chooser return was stubbed only in the disposable test process. Consumer Windows 10/11 clean install, real chooser interaction, standard-user install, uninstall/reinstall, continuous packaged analysis, offline observation, high-DPI, accessibility, and broader compatibility remain open.
+Current state: automated NSIS silent install, installed-app workflow, silent uninstall, and executable-removal verification passed on Windows Server 2022 x64. Consumer Windows 10/11 clean installation, real chooser interaction, standard-user testing, reinstall, offline observation, high-DPI, accessibility, and broader compatibility remain open.
 
 ## 5. Store certification preparation
 
 - [ ] Windows App Certification Kit run against the final package; report preserved
 - [ ] Microsoft Defender or equivalent consumer antivirus scan run; report preserved
+- [x] Preflight NSIS install/workflow/uninstall report reviewed for run `33406656618`
 - [ ] Package install/uninstall logs reviewed
 - [ ] Package capability list is minimal and matches product behavior
 - [ ] Restricted capabilities absent or separately justified
@@ -84,7 +86,7 @@ Current state: a successful direct Windows packaged preflight exists, but WACK, 
 
 - [ ] English listing copy reviewed against the exact package
 - [ ] At least four final Windows screenshots captured and hashed
-- [x] Four 1366 × 768 packaged Windows **preflight** screenshots captured and hashed; these are not final Store AppX screenshots
+- [x] Four 1366 × 768 packaged Windows preflight screenshots captured in run `33406656618`; these are not final Store AppX screenshots
 - [ ] 300 × 300 Store tile inspected
 - [ ] Optional Chinese listing explicitly says the UI is English
 - [x] Public privacy policy exists in the public repository

@@ -27,16 +27,16 @@ call, or runtime language model in version 0.1.0.
 
 ## Windows artifacts
 
-Successful GitHub-hosted Windows Server 2022 preflight
-[33403432371](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33403432371)
+Successful GitHub-hosted Windows Server 2022 installer preflight
+[33406656618](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33406656618)
 at commit
-[`f9b0d72716e4958f5b1d523eb926451707437dc6`](https://github.com/lzy2767865503-pixel/causalpilot-ai/commit/f9b0d72716e4958f5b1d523eb926451707437dc6)
+[`612a618a3de36ab53865354f9e8f0a5e9a05c26a`](https://github.com/lzy2767865503-pixel/causalpilot-ai/commit/612a618a3de36ab53865354f9e8f0a5e9a05c26a)
 produced:
 
 - `CausalPilot-AI-0.1.0-windows-x64-setup.exe` — SHA-256
-  `1af7f1f947eb83b7b98d43dd881ab03711b1bc44861cfdf9393376df60021e26`
+  `22cf9261e8bf86f21637764c0c1d4f4807b0bce24567d22a1b9fa1020f4cdc88`
 - `CausalPilot-AI-0.1.0-windows-x64.zip` — SHA-256
-  `bb1c986910e727b0f00f581abafdcb7a39aacd641b256a4d7b382d1b591f882d`
+  `70cffa566f09fd105e64c9f83965e9bc5e5daeb7c6875201cfb50fe58aaa9c74`
 - `SHA256SUMS-windows.txt`
 
 These hashes identify the temporary GitHub Actions preflight artifacts only,
@@ -55,6 +55,9 @@ The successful hosted run recorded:
   returned the expected dataset hash;
 - the packaged `win32`/`x64` executable completed CSV mapping, deterministic
   local analysis, result rendering, and aggregate JSON/HTML evidence export;
+- the NSIS installer returned exit code 0, the installed executable completed
+  the same local workflow, the silent uninstaller returned exit code 0, and the
+  installed main executable was removed;
 - the export used schema `causalpilot.evidence.v1`, credited
   `LAI ZEYU (来泽宇)`, matched the frozen dataset hash, and contained no
   recognized raw-row collection;
@@ -69,12 +72,14 @@ exercised.
 
 ## Important boundaries
 
-- The preflight ran on GitHub-hosted Windows Server 2022. It did not install the
-  NSIS package on clean Windows 10 or Windows 11, so consumer-Windows
-  installation and compatibility are not established.
-- The native chooser, installer/uninstaller, relaunch-after-install, WACK,
-  Defender, network observation, high-DPI/accessibility matrix, and retention
-  behaviour were not established by this run.
+- The preflight ran on GitHub-hosted Windows Server 2022 and exercised silent
+  install, installed-app launch/workflow, silent uninstall, and main-executable
+  removal. It was not a clean Windows 10 or Windows 11 consumer device, so
+  broad consumer-Windows compatibility is not established.
+- The real native chooser, interactive installer pages, standard-user matrix,
+  reinstall/upgrade, complete residue audit, WACK, Defender, network
+  observation, high-DPI/accessibility matrix, and retention behaviour were not
+  established by this run.
 - The packages have no verified trusted Authenticode publisher identity merely
   because they were built in GitHub Actions. Windows may show an
   unrecognized-publisher warning.

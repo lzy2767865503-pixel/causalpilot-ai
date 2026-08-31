@@ -25,22 +25,23 @@ verified after a GitHub repository and release exist.
 
 - [x] The MIT source repository is public at
   `https://github.com/lzy2767865503-pixel/causalpilot-ai`.
-- [x] The public history and current preflight commit are recorded; Windows
-  preflight 33403432371 used
-  `f9b0d72716e4958f5b1d523eb926451707437dc6`.
+- [x] The public history and current installer-preflight commit are recorded;
+  Windows run 33406656618 used
+  `612a618a3de36ab53865354f9e8f0a5e9a05c26a`.
 - [x] Private vulnerability reporting, secret scanning, and secret-scanning
   push protection are enabled.
 - [x] `LICENSE`, `CITATION.cff`, contribution/security files, issue forms, and
   the MIT package metadata are present in the public repository.
 - [x] Source validation and Security review completed successfully for commit
-  `f9b0d72716e4958f5b1d523eb926451707437dc6`.
-- [x] GitHub-hosted Windows Server 2022 preflight 33403432371 completed
-  successfully: 17 frontend tests, 15 engine tests, Unicode-path sidecar smoke,
-  packaged E2E/export, and four 1366 × 768 screenshots passed.
+  `612a618a3de36ab53865354f9e8f0a5e9a05c26a`.
+- [x] GitHub-hosted Windows Server 2022 installer preflight 33406656618
+  completed successfully: 17 frontend tests, 15 engine tests, Unicode-path
+  sidecar smoke, silent install, installed-app E2E/export, silent uninstall,
+  main-executable removal, and four 1366 × 768 screenshots passed.
 - [x] The preflight recorded these exact SHA-256 values:
-  - `1af7f1f947eb83b7b98d43dd881ab03711b1bc44861cfdf9393376df60021e26`
+  - `22cf9261e8bf86f21637764c0c1d4f4807b0bce24567d22a1b9fa1020f4cdc88`
     — `CausalPilot-AI-0.1.0-windows-x64-setup.exe`
-  - `bb1c986910e727b0f00f581abafdcb7a39aacd641b256a4d7b382d1b591f882d`
+  - `70cffa566f09fd105e64c9f83965e9bc5e5daeb7c6875201cfb50fe58aaa9c74`
     — `CausalPilot-AI-0.1.0-windows-x64.zip`
 
 ## Still required before a public binary or Store release
@@ -62,8 +63,9 @@ verified after a GitHub repository and release exist.
 - [ ] Keep Microsoft Store upload, certification, signed-out listing access,
   acquisition, and Store-installed retesting as separate gates.
 
-The Windows preflight establishes a hosted `win32`/`x64` package and workflow
-check. It does not establish clean consumer-Windows compatibility, trusted
+The Windows preflight establishes a hosted `win32`/`x64` package,
+install/workflow/uninstall smoke, and main-executable removal check. It does not
+establish clean consumer-Windows compatibility, a full residue audit, trusted
 publisher identity, WACK, Store certification, or public binary availability.
 
 ## Never commit

@@ -44,4 +44,4 @@ Follow the repository `SECURITY.md` policy and send technical details through th
 
 ## Windows evidence boundary
 
-GitHub Actions run `33403432371` successfully built and exercised the packaged x64 application directly on a Windows Server 2022 runner. Four 1366 × 768 screenshots and the associated reports/hashes are preserved in `evidence/releases/0.1.0/windows/`. This is packaged-preflight evidence only: it is not a clean consumer Windows 10/11 installation test, final Store AppX evidence, Microsoft certification, or proof that the app is publicly available in Microsoft Store.
+GitHub Actions run `33406656618` silently installed the NSIS package, exercised the installed x64 application’s bundled local engine and aggregate evidence export, silently uninstalled it, and confirmed removal of the installed executable on Windows Server 2022. Four 1366 × 768 packaged-preflight screenshots were also preserved. This is not clean consumer Windows 10/11 evidence, final Store AppX evidence, Microsoft certification, or proof of Microsoft Store availability.
