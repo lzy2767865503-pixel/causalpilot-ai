@@ -67,19 +67,36 @@ try {
     child.stderr.on("data", (chunk) => stderr.push(chunk));
     child.once("error", reject);
     child.once("close", (code) => {
+      const stdoutText = Buffer.concat(stdout).toString("utf8");
+      const stderrText = Buffer.concat(stderr).toString("utf8");
+      let parsed;
+      try {
+        parsed = JSON.parse(stdoutText);
+      } catch (error) {
+        if (code !== 0) {
+          reject(
+            new Error(
+              `Sidecar exited ${String(code)} with invalid JSON stdout ${JSON.stringify(stdoutText)} and stderr ${JSON.stringify(stderrText)}.`,
+            ),
+          );
+          return;
+        }
+        reject(error);
+        return;
+      }
       if (code !== 0) {
         reject(
           new Error(
-            `Sidecar exited ${String(code)}: ${Buffer.concat(stderr).toString("utf8")}`,
+            `Sidecar exited ${String(code)} with result ${JSON.stringify({
+              status: parsed.status,
+              errors: parsed.errors,
+              warnings: parsed.warnings,
+            })} and stderr ${JSON.stringify(stderrText)}.`,
           ),
         );
         return;
       }
-      try {
-        resolve(JSON.parse(Buffer.concat(stdout).toString("utf8")));
-      } catch (error) {
-        reject(error);
-      }
+      resolve(parsed);
     });
     child.stdin.end(JSON.stringify(request), "utf8");
   });

@@ -46,12 +46,14 @@ jobs:
         run: npm test
       - name: Run deterministic engine tests
         run: npm run test:engine
+      - name: Build the Windows x64 sidecar once
+        run: npm run build:sidecar
+      - name: Exercise the Windows sidecar with Unicode path and frozen hash
+        run: npm run test:sidecar
       - name: Compile application source
         run: npm run build
       - name: Create final NSIS, ZIP, and unpacked Windows distributions
-        run: npm run package:win
-      - name: Exercise the final sidecar with Unicode path and frozen hash
-        run: npm run test:sidecar
+        run: npm run package:win:artifacts
       - name: Exercise packaged import, engine, result, and evidence export
         run: npm run qa:packaged
       - name: Capture four packaged Windows Store screenshots

@@ -28,6 +28,7 @@
     "package:mac": "npm run build:icon && npm run build:sidecar && npm run build && electron-builder --mac dmg --arm64 --publish never",
     "package:win:dir": "npm run build:sidecar && npm run build && electron-builder --win dir --x64 --publish never",
     "package:win": "npm run build:sidecar && npm run build && electron-builder --win --x64 --publish never",
+    "package:win:artifacts": "electron-builder --win --x64 --publish never",
     "package:win:store": "npm run build:sidecar && npm run build && electron-builder --config electron-builder.store.cjs --win appx --x64 --publish never"
   },
   "dependencies": {
