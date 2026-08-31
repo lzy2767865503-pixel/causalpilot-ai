@@ -40,16 +40,18 @@ def _decode_request(raw: str, line_number: int = 1) -> Dict[str, Any]:
 
 
 def _emit(result: Dict[str, Any], pretty: bool = False) -> None:
+    # JSON Unicode escapes preserve the decoded values while keeping stdout
+    # independent of the host console code page (notably Windows cp1252).
     if pretty:
         rendered = json.dumps(
-            result, sort_keys=True, indent=2, ensure_ascii=False, allow_nan=False
+            result, sort_keys=True, indent=2, ensure_ascii=True, allow_nan=False
         )
     else:
         rendered = json.dumps(
             result,
             sort_keys=True,
             separators=(",", ":"),
-            ensure_ascii=False,
+            ensure_ascii=True,
             allow_nan=False,
         )
     sys.stdout.write(rendered + "\n")
@@ -94,4 +96,3 @@ def main(argv: Any = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -110,7 +110,19 @@ def test_valid_binary_experiment_matches_golden(tmp_path):
     expected = json.loads(
         (HERE / "golden" / "valid_binary_expected.json").read_text(encoding="utf-8")
     )
-    assert actual == expected
+    # Normal-distribution primitives can differ by a few ULPs across platform
+    # libm implementations. Keep the contract exact and compare only derived
+    # inferential floats with a tight numerical tolerance.
+    approximate_fields = {
+        "confidence_interval_low",
+        "confidence_interval_high",
+        "p_value_two_sided",
+    }
+    assert {key: value for key, value in actual.items() if key not in approximate_fields} == {
+        key: value for key, value in expected.items() if key not in approximate_fields
+    }
+    for key in approximate_fields:
+        assert actual[key] == pytest.approx(expected[key], rel=1e-12, abs=1e-15)
     assert result["engine"]["ai_used_for_calculations"] is False
     assert result["engine"]["project_owner"] == "LAI ZEYU (来泽宇)"
     assert result["business_interpretation"]["roi"]["available"] is True
@@ -220,8 +232,10 @@ def test_cli_one_shot_and_jsonl_contract(tmp_path):
     )
     assert completed.returncode == 0
     assert completed.stderr == ""
+    assert completed.stdout.isascii()
     one_shot = json.loads(completed.stdout)
     assert one_shot["status"] == "ok"
+    assert one_shot["engine"]["project_owner"] == "LAI ZEYU (来泽宇)"
 
     jsonl = subprocess.run(
         [sys.executable, "-m", "causalpilot_engine.cli", "jsonl"],
