@@ -1,0 +1,42 @@
+{
+  "capturedAt": "2026-08-31T16:45:11.212Z",
+  "captureBoundary": "Captured from the packaged Windows x64 executable. Only the native file chooser response was stubbed; the production file capability, validation, Windows sidecar, and renderer were exercised.",
+  "executablePath": "D:\\a\\causalpilot-ai\\causalpilot-ai\\release\\win-unpacked\\CausalPilot AI.exe",
+  "application": {
+    "name": "CausalPilot AI",
+    "author": "LAI ZEYU (来泽宇)",
+    "description": "Offline-first experiment analysis and evidence export with a deterministic local engine.",
+    "version": "0.1.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "packaged": true,
+    "processingMode": "offline-local-engine"
+  },
+  "screenshots": {
+    "overview": {
+      "file": "01-overview-1366x768.png",
+      "width": 1366,
+      "height": 768
+    },
+    "mapping": {
+      "file": "02-import-mapping-1366x768.png",
+      "width": 1366,
+      "height": 768
+    },
+    "results": {
+      "file": "03-local-results-1366x768.png",
+      "width": 1366,
+      "height": 768
+    },
+    "reports": {
+      "file": "04-evidence-reports-1366x768.png",
+      "width": 1366,
+      "height": 768
+    }
+  },
+  "datasetHash": "47ab1a639eecfbb1630063298d6d3b447bac5123e87d6e9653bdc283bf9de244",
+  "author": "LAI ZEYU (来泽宇)",
+  "unicodeInputPathRoundTrip": true,
+  "horizontalOverflow": false,
+  "consoleErrors": []
+}

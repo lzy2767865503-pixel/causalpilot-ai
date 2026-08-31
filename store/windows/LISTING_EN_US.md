@@ -3,10 +3,10 @@
 **Store product:** CausalPilot AI by LAI ZEYU  
 **Public GitHub preview display name:** CausalPilot AI
 
-**Planned Store AppX display name:** CausalPilot AI by LAI ZEYU — verify in the final manifest and installed package
+**Store AppX display name:** CausalPilot AI by LAI ZEYU
 **Version:** 0.1.0  
 **Developed by:** LAI ZEYU (来泽宇)  
-**Status:** Text fields are copy-ready; do not submit until the final Store AppX, screenshot, questionnaire, and Partner Center gates are closed
+**Status:** Saved in Partner Center and shown as `Complete` on 2026-09-01. Four exact Store-candidate screenshots are uploaded and the package is validated. Certification has not been submitted, and the product is not publicly available in Microsoft Store.
 
 ## Product name
 
@@ -71,11 +71,11 @@ Use no more than seven. These seven contain 15 distinct words and each is under 
 6. local data analysis
 7. experiment diagnostics
 
-## Category
+## Category — saved
 
 - Primary category: Business
 - Primary subcategory: Data + analytics
-- Optional secondary category: Productivity
+- Secondary category: Productivity
 
 ## Copyright and trademark information
 
@@ -107,12 +107,23 @@ https://github.com/lzy2767865503-pixel/causalpilot-ai
 
 https://github.com/lzy2767865503-pixel/causalpilot-ai/blob/main/store/windows/SUPPORT.md
 
-## Price and commerce proposal
+## Pricing and availability — saved
 
 - Base price: Free
+- Markets: All available markets (global)
+- Audience: Public
+- Discoverability: Available and discoverable in Microsoft Store
+- Release schedule: Automatically publish after certification
 - Free trial: None
 - In-app purchases/add-ons/subscriptions: None
 - Advertising: None
-- Publishing hold: Manual until the exact public listing is reviewed
 
-These are proposed release choices, not evidence that Partner Center has been configured.
+These choices were saved in Partner Center on 2026-09-01. They do not prove certification, publication, public Store availability, or acquisition.
+
+## Partner Center listing state
+
+- English (United States) listing: `Complete`
+- Uploaded screenshots: 4 exact Store-candidate Windows images
+- Package: validated
+- Submission for certification: not sent
+- Microsoft Store availability: not achieved

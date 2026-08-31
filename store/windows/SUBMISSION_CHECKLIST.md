@@ -11,39 +11,43 @@
 - [x] Exact Package/Identity/Name copied from Partner Center: `LAIZEYU.CausalPilotAIbyLAIZEYU`
 - [x] Exact Publisher copied from Partner Center: `CN=A5F91D0A-30C6-48EE-944F-B767FA872BE8`
 - [x] Publisher display name verified: `LAI ZEYU`
-- [ ] Package identity values provided to the Windows build without transcription changes
+- [x] Package identity values provided to the Windows build without transcription changes and verified in the generated manifest
 - [x] CausalPilot-specific Store ID `9NXZ3MJFFGFG` and PFN `LAIZEYU.CausalPilotAIbyLAIZEYU_jex0hdpdrk7qw` recorded; no identifier from another Store product used
 
-Current state: the product is `In draft`; reservation and identity capture are complete. The exact values are preserved in `PARTNER_CENTER_IDENTITY.md`. Build binding and final manifest inspection remain open, so **PENDING_FINAL_STORE_APPX** is still a hard gate.
+Current state: the product is `In draft`; reservation, identity capture, build binding, and exact manifest inspection are complete. The values are preserved in `PARTNER_CENTER_IDENTITY.md` and match the uploaded, server-validated AppX. This does not establish certification or publication.
 
 ## 2. Source and licence
 
 - [x] Public GitHub repository exists: `https://github.com/lzy2767865503-pixel/causalpilot-ai`
 - [x] Release commit and annotated tag `v0.1.0` are frozen at `b2a226ac9e2623ba210a192095d2feb2eb7dacf4`
+- [x] Immutable Store-candidate tag `v0.1.0-store.1` is frozen at `3a46c94c68fa30c4a324aaad6f60f6fceb2dfe14`
 - [x] Tagged GitHub build checked out the exact frozen tag in a clean hosted workspace
 - [x] MIT `LICENSE` is present and names Copyright © 2026 LAI ZEYU (来泽宇)
 - [x] `AUTHORS.md` and `NOTICE.md` are present in the public repository
-- [x] Direct-download GitHub package contains the intended licence/authorship notices; final Store AppX remains a separate inspection gate
+- [x] Direct-download GitHub package contains the intended licence/authorship notices
+- [x] Store AppX nested package inspection confirms the intended licence/authorship notices and application version
 - [x] Public source archive and tagged GitHub release resolve to the frozen `v0.1.0` commit
 - [x] AI-assistance disclosure is present and remains accurate for the current public source
 - [x] Private vulnerability reporting is enabled and `SECURITY.md` provides the reporting policy
 
-Current state: the annotated `v0.1.0` tag, public source archive, reviewed GitHub Windows x64 pre-release, MIT licence, packaged direct-download authorship/notices, privacy/support content, AI-assistance disclosure, and private vulnerability-reporting route exist. This closes the GitHub-release source/licence gate only; the final Store AppX has not been created or inspected for packaged licence/authorship parity.
+Current state: the public `v0.1.0` release and immutable `v0.1.0-store.1` Store-candidate tag are preserved separately. The Store AppX inspection verified packaged version, authorship, licence, notices, and byte parity for the tested core payload. This closes the Store package source/licence parity check; it does not prove AppX installation, certification, or availability.
 
 ## 3. Windows package
 
-- [ ] Final x64 production renderer/Electron build passes
-- [ ] Windows x64 local engine sidecar is built from the same frozen source
-- [ ] Final package targets `Windows.Desktop`
-- [ ] Manifest minimum OS and package version inspected
-- [ ] Manifest identity exactly matches Partner Center
-- [ ] Application display name and publisher-facing metadata are correct
-- [ ] Start menu entry, icon scales, uninstall metadata, and author/copyright are correct
-- [ ] No development URL, test hook, source map, private path, `.env`, secret, credential, or real dataset is present
-- [ ] Final candidate hash and byte size recorded
+- [x] Final x64 production renderer/Electron build passes
+- [x] Windows x64 local engine sidecar is built from the same frozen source
+- [x] Final package targets `Windows.Desktop`
+- [x] Manifest minimum OS `10.0.17763.0` and package version `1.0.0.0` inspected
+- [x] Manifest identity exactly matches Partner Center
+- [x] Application display name and publisher-facing metadata are correct
+- [x] Required AppX asset references, dimensions, source hashes, and packaged author/copyright notices are correct
+- [ ] AppX installation verifies the Start-menu entry, installed label, uninstall metadata, and uninstall behavior
+- [x] Nested package scan confirms no source maps, `.env` files, certificate/private-key files, or recognized credential/token patterns
+- [ ] Independent package check for private build paths and unintended non-synthetic datasets preserved
+- [x] Final candidate hash and byte size recorded
 - [ ] Final candidate copied to immutable release storage
 
-Current state: GitHub Actions run `33409332005` built the public Windows distributions from tagged commit `b2a226ac9e2623ba210a192095d2feb2eb7dacf4`, silently installed the NSIS package, exercised the installed application, silently uninstalled it, and confirmed removal of the installed executable on Windows Server 2022 x64. The reviewed public installer is 123,901,221 bytes with SHA-256 `3d8f12ea5dc999cd014710ef78c7e6dcce467a2aa20c5a609f37ca35b116a0ce`. This closes the direct-download GitHub preview package gate only. All Store-package checklist items above remain open, and the Partner Center-identity-bound final Store AppX remains **PENDING_FINAL_STORE_APPX**.
+Current state: immutable tag `v0.1.0-store.1` at `3a46c94c68fa30c4a324aaad6f60f6fceb2dfe14` was built in [run `33415607188`, job `99565393818`](https://github.com/lzy2767865503-pixel/causalpilot-ai/actions/runs/33415607188/job/99565393818). The inspected AppX is `CausalPilot-AI-0.1.0-windows-x64.appx`, 175,766,948 bytes, SHA-256 `3b5271b822e0a05663b8c7bb802f47914dac61b5f902b52cc02511b661744825`. Identity, manifest, assets, notices, nested secret scan, AMD64 PE structure/security flags, and AppX-to-tested-unpacked core-payload byte parity passed. Partner Center accepted this exact package and reports `Validated`. The AppX has not been installed or copied to permanent immutable archival storage.
 
 ## 4. Compatibility and runtime QA
 
@@ -51,13 +55,13 @@ Current state: GitHub Actions run `33409332005` built the public Windows distrib
 - [ ] Install from the final package on Windows 11 24H2 x64
 - [ ] Launch as a standard user
 - [x] Automated tagged-package lifecycle on run `33409332005`: silent install returned 0, the installed packaged workflow completed, silent uninstall returned 0, and the installed executable was removed
-- [ ] Built-in synthetic workflow completes
+- [x] Built-in synthetic workflow completes in the candidate-matched unpacked payload from run `33415607188`
 - [ ] Native CSV chooser works
-- [ ] Valid binary CSV analysis completes
+- [x] Valid binary CSV analysis completes in the candidate-matched packaged E2E workflow
 - [ ] Valid continuous CSV analysis completes
 - [ ] Invalid/duplicate/missing/SRM/sparse fixtures produce expected blocks or warnings
 - [ ] Individual-employment-decision request is refused by the engine fixture
-- [ ] JSON export completes and contains no raw rows/local paths
+- [x] JSON export completes and contains no recognized raw-row collection in the candidate-matched packaged E2E workflow
 - [ ] HTML export opens locally
 - [ ] Close/relaunch/uninstall/reinstall work
 - [ ] Offline run succeeds after installation
@@ -65,7 +69,7 @@ Current state: GitHub Actions run `33409332005` built the public Windows distrib
 - [ ] Window at minimum supported size has no inaccessible controls or horizontal clipping
 - [ ] Keyboard-only smoke and screen-reader labels reviewed; do not claim accessibility certification unless the named standard passes
 
-Current state: automated NSIS silent install, installed-app workflow, silent uninstall, and executable-removal verification passed on Windows Server 2022 x64. Consumer Windows 10/11 clean installation, real chooser interaction, standard-user testing, reinstall, offline observation, high-DPI, accessibility, and broader compatibility remain open.
+Current state: automated NSIS silent install/workflow/uninstall evidence remains valid for the public preview. The Store-candidate run separately proved packaged E2E behavior against the unpacked core payload whose main executable, sidecar, and app.asar hashes match the AppX. It did not install the AppX. Consumer Windows 10/11 clean installation, AppX Start-menu/uninstall behavior, real chooser interaction, standard-user testing, reinstall, offline-after-install observation, high-DPI, accessibility, and broader compatibility remain open.
 
 ## 5. Store certification preparation
 
@@ -73,49 +77,54 @@ Current state: automated NSIS silent install, installed-app workflow, silent uni
 - [ ] Microsoft Defender or equivalent consumer antivirus scan run; report preserved
 - [x] Tagged NSIS install/workflow/uninstall report reviewed for run `33409332005`
 - [ ] Package install/uninstall logs reviewed
-- [ ] Package capability list is minimal and matches product behavior
-- [ ] Restricted capabilities absent or separately justified
+- [x] Package capability list is minimal and matches product behavior: `runFullTrust` only
+- [x] The sole restricted capability, `runFullTrust`, is identified and justified by the packaged full-trust Electron desktop runtime
 - [ ] Dependency/advisory audit preserved
-- [ ] Secret and personal-data scan includes nested package contents
+- [x] Sensitive-file and credential/token-pattern scan includes the expanded AppX and nested app.asar
+- [ ] Independent personal-data scan of the final package preserved
+- [x] Core Windows executables are AMD64 PE32+ with expected subsystems, ASLR, and DEP/NX flags
 - [ ] Network observation on Windows confirms no app analysis traffic in the tested configuration
 - [ ] Temporary-file and retention behavior reviewed on Windows
 
-Current state: a reviewed public tagged GitHub Windows preview exists, but WACK, Defender, package install/uninstall logs, independent network observation, Windows retention review, restricted-capability review for the final identity-bound package, and final Store AppX inspection remain pending.
+Current state: final AppX structure, capability, nested secret, authorship/notices, asset, PE, and payload-parity inspections passed. WACK, Defender/SmartScreen, AppX install/uninstall logs, independent network observation, independent personal-data scan, and Windows retention review remain pending.
 
 ## 6. Store metadata and public pages
 
-- [ ] English listing copy reviewed against the exact package
+- [x] English Store listing reports `Complete`
 - [x] English text fields fit current documented limits: description 2,646/10,000 characters, short description 138/1,000 characters, 12/20 features, seven keywords, and copyright 155/200 characters
-- [ ] At least four final Windows screenshots captured and hashed
-- [x] Four 1366 × 768 tagged packaged Windows screenshots captured in run `33409332005`; these are not final Store AppX screenshots
+- [x] Four 1366 × 768 candidate-matched Windows screenshots captured and verified in run `33415607188`
+- [x] Four screenshots uploaded to the English Store listing
 - [ ] 300 × 300 Store tile inspected
 - [ ] Optional Chinese listing explicitly says the UI is English
 - [x] Public privacy policy exists in the public repository
 - [x] Public support page and issue intake exist in the public repository
 - [x] Public repository, MIT licence, authorship, and notices are available
 - [x] Private vulnerability-reporting form is enabled
-- [ ] Category is Business → Data + analytics
-- [ ] Generative-AI declaration is No for 0.1.0
-- [ ] Privacy question is Yes because the app accesses a user-selected file
-- [ ] IARC questionnaire completed accurately and generated rating saved
-- [ ] “Tested accessible” remains unchecked unless substantiated
-- [ ] Price, markets, discoverability, and release hold intentionally chosen
+- [x] Partner Center Properties section reports `Complete`
+- [x] Live category value recorded as Business → Data + analytics, with Productivity as the secondary category
+- [x] Live generative-AI declaration recorded as No for 0.1.0
+- [x] Live privacy answer recorded as Yes because the app accesses a user-selected file
+- [x] IARC questionnaire completed and the Partner Center age-rating section reports `Complete`
+- [ ] A named accessibility standard and preserved test evidence support any “tested accessible” claim
+- [x] Pricing and availability section reports `Complete`; automatic publishing after certification selected
 
-Current state: public metadata/support foundations exist, the public GitHub preview is available at `https://github.com/lzy2767865503-pixel/causalpilot-ai/releases/tag/v0.1.0`, the English text fields pass current limit checks, and four tagged-package screenshots are preserved. Exact wording/behavior review against the final Store AppX, final AppX screenshots, Store tile review, IARC output, pricing/markets/release choices, and Partner Center section completion remain pending.
+Current state: Pricing and availability, Properties, IARC age ratings, Submission options, Testing notes, Packages, and the English Store listing all report `Complete`; four candidate-matched screenshots are uploaded. The 300 × 300 listing tile and accessibility-standard evidence remain open. Completion badges do not mean certification or public availability.
 
 ## 7. Partner Center upload and certification
 
-- [ ] Exact final package uploaded
-- [ ] Partner Center package preprocessing reports no errors
-- [ ] Device family/architecture delivery table reviewed
-- [ ] All submission sections show complete
-- [ ] Reviewer notes match the uploaded package
-- [ ] No real personal/client data or credential supplied
+- [x] Exact final package uploaded
+- [x] Partner Center package preprocessing reports `Validated` with no server validation error
+- [x] Device family/architecture delivery limited to Windows 10/11 Desktop x64; future device families not selected
+- [x] Pricing and availability, Properties, IARC age ratings, Submission options, Testing notes, Packages, and English listing all show `Complete`
+- [x] Testing/reviewer notes match the uploaded package behavior and declared limitations
+- [x] Uploaded package credential/token-pattern scan passed
+- [x] Reviewer submission confirmed to contain no real personal/client data or credentials
 - [ ] Legal declarations answered by the account owner
+- [x] Automatic publishing after certification selected
 - [ ] Submission sent for certification
-- [ ] Submission ID, timestamp, and screenshot preserved
+- [x] Draft submission ID `1152921505701778491`, record date, and Partner Center overview screenshot preserved
 
-Permitted status after this section: **Submitted for certification** or **In certification**, never “live.”
+Current state: **In draft — package uploaded and server-validated; certification not submitted.** Automatic publishing is only a future action after successful certification. Do not describe this state as submitted, in certification, certified, published, or live.
 
 ## 8. Publication verification
 
@@ -136,7 +145,7 @@ Only after all applicable items pass may the project say: **“CausalPilot AI is
 Do not submit if any of these is true:
 
 - Partner Center identity is absent or guessed.
-- Final AppX/MSIX was not installed and tested on Windows.
+- The final AppX/MSIX payload was neither installed on Windows nor byte-matched to the Windows-tested packaged payload. For this candidate, Partner Center validation plus recorded byte parity closes the pre-submission payload-equivalence gate; AppX installation remains an explicitly open post-signing/Store gate.
 - Privacy/support URL is a placeholder, private page, or broken link.
 - Screenshots were taken on macOS, a browser mock, or a different package.
 - Package contains credentials, private datasets, personal information, or local build paths.

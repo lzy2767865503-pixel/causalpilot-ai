@@ -1,0 +1,178 @@
+{
+  "status": "validated_windows_runtime_pe_structure",
+  "author": "LAI ZEYU (来泽宇)",
+  "runtimeDirectory": "win-unpacked",
+  "coreRuntime": {
+    "application": {
+      "path": "CausalPilot AI.exe",
+      "architecture": "AMD64",
+      "format": "PE32+",
+      "subsystem": "WINDOWS_GUI",
+      "operatingSystemVersion": "10.0",
+      "subsystemVersion": "10.0"
+    },
+    "localEngine": {
+      "path": "resources/engine/causalpilot-engine.exe",
+      "architecture": "AMD64",
+      "format": "PE32+",
+      "subsystem": "WINDOWS_CUI",
+      "operatingSystemVersion": "6.0",
+      "subsystemVersion": "6.0"
+    }
+  },
+  "knownArchitectureExceptions": [],
+  "binaries": [
+    {
+      "path": "CausalPilot AI.exe",
+      "bytes": 244440576,
+      "sha256": "3f90c8f0e5bc05917c06c36bcb19da5f14e78a78885c3a78ba0dfc9d09b32a24",
+      "machine": "AMD64",
+      "machineValue": "0x8664",
+      "format": "PE32+",
+      "operatingSystemVersion": "10.0",
+      "subsystemVersion": "10.0",
+      "subsystem": "WINDOWS_GUI",
+      "dllCharacteristics": {
+        "highEntropyVa": true,
+        "dynamicBase": true,
+        "nxCompat": true,
+        "guardCf": true,
+        "terminalServerAware": true
+      }
+    },
+    {
+      "path": "d3dcompiler_47.dll",
+      "bytes": 4741488,
+      "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb",
+      "machine": "AMD64",
+      "machineValue": "0x8664",
+      "format": "PE32+",
+      "operatingSystemVersion": "10.0",
+      "subsystemVersion": "6.2",
+      "subsystem": "WINDOWS_CUI",
+      "dllCharacteristics": {
+        "highEntropyVa": true,
+        "dynamicBase": true,
+        "nxCompat": true,
+        "guardCf": true,
+        "terminalServerAware": false
+      }
+    },
+    {
+      "path": "dxcompiler.dll",
+      "bytes": 25744896,
+      "sha256": "494a0ca088d1b9dd8ff673d590aaddd6bdcff09c938befef8c88c2016c49ee9a",
+      "machine": "AMD64",
+      "machineValue": "0x8664",
+      "format": "PE32+",
+      "operatingSystemVersion": "10.0",
+      "subsystemVersion": "10.0",
+      "subsystem": "WINDOWS_CUI",
+      "dllCharacteristics": {
+        "highEntropyVa": true,
+        "dynamicBase": true,
+        "nxCompat": true,
+        "guardCf": true,
+        "terminalServerAware": false
+      }
+    },
+    {
+      "path": "dxil.dll",
+      "bytes": 1509760,
+      "sha256": "77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a",
+      "machine": "AMD64",
+      "machineValue": "0x8664",
+      "format": "PE32+",
+      "operatingSystemVersion": "6.0",
+      "subsystemVersion": "6.0",
+      "subsystem": "WINDOWS_CUI",
+      "dllCharacteristics": {
+        "highEntropyVa": true,
+        "dynamicBase": true,
+        "nxCompat": true,
+        "guardCf": true,
+        "terminalServerAware": false
+      }
+    },
+    {
+      "path": "ffmpeg.dll",
+      "bytes": 3113472,
+      "sha256": "0b4a5071d9cee1c8318f365d977f271ce771be8cce214cd12e24b714e239ff16",
+      "machine": "AMD64",
+      "machineValue": "0x8664",
+      "format": "PE32+",
+      "operatingSystemVersion": "10.0",
+      "subsystemVersion": "10.0",
+      "subsystem": "WINDOWS_CUI",
+      "dllCharacteristics": {
+        "highEntropyVa": true,
+        "dynamicBase": true,
+        "nxCompat": true,
+        "guardCf": true,
+        "terminalServerAware": false
+      }
+    },
+    {
+      "path": "resources/engine/causalpilot-engine.exe",
+      "bytes": 8334633,
+      "sha256": "7afb0427a508e5a738ffd6741715d867cce2d74dd67ce0e99c09df8884a1f65b",
+      "machine": "AMD64",
+      "machineValue": "0x8664",
+      "format": "PE32+",
+      "operatingSystemVersion": "6.0",
+      "subsystemVersion": "6.0",
+      "subsystem": "WINDOWS_CUI",
+      "dllCharacteristics": {
+        "highEntropyVa": true,
+        "dynamicBase": true,
+        "nxCompat": true,
+        "guardCf": true,
+        "terminalServerAware": true
+      }
+    },
+    {
+      "path": "vk_swiftshader.dll",
+      "bytes": 5520384,
+      "sha256": "a3239fabefee509d40221a55d0bb1711746f59c9b620ffdb34335b450592acbb",
+      "machine": "AMD64",
+      "machineValue": "0x8664",
+      "format": "PE32+",
+      "operatingSystemVersion": "10.0",
+      "subsystemVersion": "10.0",
+      "subsystem": "WINDOWS_CUI",
+      "dllCharacteristics": {
+        "highEntropyVa": true,
+        "dynamicBase": true,
+        "nxCompat": true,
+        "guardCf": true,
+        "terminalServerAware": false
+      }
+    },
+    {
+      "path": "vulkan-1.dll",
+      "bytes": 939008,
+      "sha256": "f3b192d1df5dc8d046c84d6e15bc575c9f6605fe0497b126d8b6664a9a75032f",
+      "machine": "AMD64",
+      "machineValue": "0x8664",
+      "format": "PE32+",
+      "operatingSystemVersion": "10.0",
+      "subsystemVersion": "10.0",
+      "subsystem": "WINDOWS_CUI",
+      "dllCharacteristics": {
+        "highEntropyVa": true,
+        "dynamicBase": true,
+        "nxCompat": true,
+        "guardCf": true,
+        "terminalServerAware": false
+      }
+    }
+  ],
+  "assertions": {
+    "mainApplicationIsAmd64Pe32Plus": true,
+    "localEngineIsAmd64Pe32Plus": true,
+    "coreExecutablesUseExpectedSubsystems": true,
+    "coreExecutablesEnableAslrAndNx": true,
+    "noUnexpectedPayloadArchitecture": true
+  },
+  "validationBoundary": "Static inspection of packaged PE headers and hashes only. This does not execute the package, prove API availability on a particular Windows build, replace clean-device Windows 10/11 tests, or establish signing, SmartScreen, Defender, WACK, Store certification, or Store availability."
+}

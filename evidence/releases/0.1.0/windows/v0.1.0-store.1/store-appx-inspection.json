@@ -1,0 +1,94 @@
+{
+  "status": "validated_store_upload_candidate",
+  "author": "LAI ZEYU (来泽宇)",
+  "artifact": {
+    "name": "CausalPilot-AI-0.1.0-windows-x64.appx",
+    "bytes": 175766948,
+    "sha256": "3b5271b822e0a05663b8c7bb802f47914dac61b5f902b52cc02511b661744825",
+    "authenticodeStatusBeforeStoreResigning": "NotSigned"
+  },
+  "manifest": {
+    "identityName": "LAIZEYU.CausalPilotAIbyLAIZEYU",
+    "publisher": "CN=A5F91D0A-30C6-48EE-944F-B767FA872BE8",
+    "version": "1.0.0.0",
+    "processorArchitecture": "x64",
+    "displayName": "CausalPilot AI by LAI ZEYU",
+    "publisherDisplayName": "LAI ZEYU",
+    "applicationId": "CausalPilotAI",
+    "applicationExecutable": "app\\CausalPilot AI.exe",
+    "archiveExecutablePath": "app/CausalPilot%20AI.exe",
+    "targetDeviceFamily": {
+      "name": "Windows.Desktop",
+      "minVersion": "10.0.17763.0",
+      "maxVersionTested": "10.0.26100.0"
+    },
+    "capabilities": [
+      "runFullTrust"
+    ]
+  },
+  "payload": {
+    "applicationVersion": "0.1.0",
+    "mainExecutableSha256": "3f90c8f0e5bc05917c06c36bcb19da5f14e78a78885c3a78ba0dfc9d09b32a24",
+    "sidecarExecutableSha256": "7afb0427a508e5a738ffd6741715d867cce2d74dd67ce0e99c09df8884a1f65b",
+    "appAsarSha256": "b9a8c2c7fd09ac290ae9e46b22a8fed327d56b2f2cefce60eaa68d66251d4741",
+    "sidecarCompanyName": "LAI ZEYU (来泽宇)",
+    "appAsarPresent": true,
+    "electronLicensePresent": true,
+    "chromiumLicensePresent": true,
+    "projectNotices": [
+      "AUTHORS.md",
+      "LICENSE",
+      "NOTICE.md",
+      "THIRD_PARTY_NOTICES.md"
+    ],
+    "sourceMapsPresent": false,
+    "appxAssets": {
+      "StoreLogo.png": {
+        "width": 50,
+        "height": 50,
+        "sha256": "bbfa3a9afc087640512f4efb1ede65ee1e6d35c73ad87eb731131f2765c650d3",
+        "matchesReviewedSourceAsset": true
+      },
+      "Square44x44Logo.png": {
+        "width": 44,
+        "height": 44,
+        "sha256": "e64046a199bd35e840c2d5309266c505491ce6583e3709fc60d3361a8da4d51b",
+        "matchesReviewedSourceAsset": true
+      },
+      "Square150x150Logo.png": {
+        "width": 150,
+        "height": 150,
+        "sha256": "cc50ad6fde1f23fbbd6006cafdcad7124f9512f0789e5e124e27c7d92da2ca27",
+        "matchesReviewedSourceAsset": true
+      },
+      "Wide310x150Logo.png": {
+        "width": 310,
+        "height": 150,
+        "sha256": "e4ed9bdccbc6a97c37eec17ed465f8aa49b9e431fef571426bcbf6076425db8b",
+        "matchesReviewedSourceAsset": true
+      }
+    },
+    "matchesTestedUnpackedBuild": {
+      "mainExecutable": true,
+      "sidecarExecutable": true,
+      "appAsar": true
+    }
+  },
+  "secretScan": {
+    "status": "passed",
+    "textFilesScanned": 1986,
+    "sensitiveFileMatches": 0,
+    "tokenPatternMatches": 0,
+    "appAsarExpanded": true
+  },
+  "validationBoundaries": {
+    "windowsAppCertificationKitRan": false,
+    "windowsAppCertificationKitReason": "WACK requires an active interactive user session and is not run in GitHub Actions Session 0.",
+    "microsoftDefenderScanRan": false,
+    "microsoftDefenderScanReason": "This workflow performs package structure and secret checks; malware scanning remains a release-host gate.",
+    "packageInstalled": false,
+    "packageInstallReason": "This unsigned Store upload candidate is intended for Partner Center re-signing, not CI installation.",
+    "submittedToPartnerCenter": false,
+    "publiclyAvailableInMicrosoftStore": false
+  }
+}
