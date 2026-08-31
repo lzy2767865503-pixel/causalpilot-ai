@@ -72,6 +72,95 @@ function Get-RelativePortablePath {
   return [System.IO.Path]::GetRelativePath($BasePath, $Path).Replace("\", "/")
 }
 
+function Convert-ManifestPathToArchivePath {
+  param([string]$ManifestPath)
+
+  $segments = @($ManifestPath -split "[\\/]" | Where-Object { $_.Length -gt 0 })
+  if (
+    $segments.Count -eq 0 -or
+    @($segments | Where-Object { $_ -eq "." -or $_ -eq ".." }).Count -gt 0
+  ) {
+    throw "Manifest payload path is empty or contains a traversal segment: $ManifestPath"
+  }
+
+  # MakeAppx URI-escapes each payload path segment in the ZIP-compatible
+  # container. For example, the manifest path `app\CausalPilot AI.exe` is
+  # physically stored as `app/CausalPilot%20AI.exe`.
+  $separator = [System.IO.Path]::DirectorySeparatorChar
+  return @(
+    $segments | ForEach-Object { [System.Uri]::EscapeDataString($_) }
+  ) -join $separator
+}
+
+function Get-PngDimension {
+  param([string]$Path, [string]$Label)
+
+  Assert-File -Path $Path -Label $Label
+  [byte[]]$bytes = [System.IO.File]::ReadAllBytes($Path)
+  [byte[]]$signature = @(0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a)
+  if ($bytes.Length -lt 24) {
+    throw "$Label is too short to be a valid PNG."
+  }
+  for ($index = 0; $index -lt $signature.Length; $index += 1) {
+    if ($bytes[$index] -ne $signature[$index]) {
+      throw "$Label does not have a valid PNG signature."
+    }
+  }
+
+  return [ordered]@{
+    width = [int](
+      ($bytes[16] * 16777216) +
+      ($bytes[17] * 65536) +
+      ($bytes[18] * 256) +
+      $bytes[19]
+    )
+    height = [int](
+      ($bytes[20] * 16777216) +
+      ($bytes[21] * 65536) +
+      ($bytes[22] * 256) +
+      $bytes[23]
+    )
+  }
+}
+
+function Assert-PackagedAppxAsset {
+  param(
+    [string]$FileName,
+    [int]$ExpectedWidth,
+    [int]$ExpectedHeight,
+    [string]$PackageRoot,
+    [string]$SourceRoot
+  )
+
+  $sourcePath = Join-Path $SourceRoot "build/appx/$FileName"
+  $packagedPath = Join-Path $PackageRoot "assets/$FileName"
+  $sourceDimensions = Get-PngDimension -Path $sourcePath -Label "source AppX asset $FileName"
+  $packagedDimensions = Get-PngDimension -Path $packagedPath -Label "packaged AppX asset $FileName"
+  if (
+    $sourceDimensions.width -ne $ExpectedWidth -or
+    $sourceDimensions.height -ne $ExpectedHeight -or
+    $packagedDimensions.width -ne $ExpectedWidth -or
+    $packagedDimensions.height -ne $ExpectedHeight
+  ) {
+    throw (
+      "$FileName dimensions mismatch. Expected ${ExpectedWidth}x${ExpectedHeight}; " +
+      "source is $($sourceDimensions.width)x$($sourceDimensions.height), " +
+      "packaged is $($packagedDimensions.width)x$($packagedDimensions.height)."
+    )
+  }
+
+  $sourceHash = (Get-FileHash -LiteralPath $sourcePath -Algorithm SHA256).Hash.ToLowerInvariant()
+  $packagedHash = (Get-FileHash -LiteralPath $packagedPath -Algorithm SHA256).Hash.ToLowerInvariant()
+  Assert-Equal "Packaged AppX asset $FileName SHA-256" $packagedHash $sourceHash
+
+  return [ordered]@{
+    width = $ExpectedWidth
+    height = $ExpectedHeight
+    sha256 = $packagedHash
+    matchesReviewedSourceAsset = $true
+  }
+}
+
 $expectedIdentity = Get-RequiredEnvironmentValue "CAUSALPILOT_STORE_IDENTITY_NAME"
 $expectedPublisher = Get-RequiredEnvironmentValue "CAUSALPILOT_STORE_PUBLISHER"
 $expectedPublisherDisplayName = if ([string]::IsNullOrWhiteSpace($env:CAUSALPILOT_STORE_PUBLISHER_DISPLAY_NAME)) {
@@ -125,6 +214,16 @@ $targetName = [string]$targetFamily.GetAttribute("Name")
 $targetMinVersion = [string]$targetFamily.GetAttribute("MinVersion")
 $targetMaxVersion = [string]$targetFamily.GetAttribute("MaxVersionTested")
 $applicationId = [string]$application.GetAttribute("Id")
+$applicationExecutable = [string]$application.GetAttribute("Executable")
+$visualElements = $application.SelectSingleNode("*[local-name()='VisualElements']")
+$defaultTile = if ($null -eq $visualElements) {
+  $null
+} else {
+  $visualElements.SelectSingleNode("*[local-name()='DefaultTile']")
+}
+if ($null -eq $visualElements -or $null -eq $defaultTile) {
+  throw "AppxManifest.xml is missing required VisualElements or DefaultTile metadata."
+}
 
 Assert-Equal "Identity Name" $manifestIdentity $expectedIdentity
 Assert-Equal "Identity Publisher" $manifestPublisher $expectedPublisher
@@ -136,6 +235,23 @@ Assert-Equal "TargetDeviceFamily Name" $targetName "Windows.Desktop"
 Assert-Equal "TargetDeviceFamily MinVersion" $targetMinVersion "10.0.17763.0"
 Assert-Equal "TargetDeviceFamily MaxVersionTested" $targetMaxVersion "10.0.26100.0"
 Assert-Equal "Application Id" $applicationId "CausalPilotAI"
+Assert-Equal "Application executable" $applicationExecutable "app\CausalPilot AI.exe"
+Assert-Equal "Package logo" ([string]$properties.SelectSingleNode("*[local-name()='Logo']").InnerText) "assets\StoreLogo.png"
+Assert-Equal "VisualElements DisplayName" ([string]$visualElements.GetAttribute("DisplayName")) $expectedDisplayName
+Assert-Equal "VisualElements Square150x150Logo" ([string]$visualElements.GetAttribute("Square150x150Logo")) "assets\Square150x150Logo.png"
+Assert-Equal "VisualElements Square44x44Logo" ([string]$visualElements.GetAttribute("Square44x44Logo")) "assets\Square44x44Logo.png"
+Assert-Equal "DefaultTile Wide310x150Logo" ([string]$defaultTile.GetAttribute("Wide310x150Logo")) "assets\Wide310x150Logo.png"
+
+if ([string]::IsNullOrWhiteSpace($applicationExecutable)) {
+  throw "AppxManifest.xml Application/Executable is empty."
+}
+$portableExecutablePath = $applicationExecutable.Replace("/", "\")
+if (
+  [System.IO.Path]::IsPathRooted($portableExecutablePath) -or
+  @($portableExecutablePath.Split("\") | Where-Object { $_ -eq ".." }).Count -gt 0
+) {
+  throw "AppxManifest.xml Application/Executable must be a package-relative path."
+}
 
 $capabilities = @(
   $manifest.SelectNodes("/*[local-name()='Package']/*[local-name()='Capabilities']/*") |
@@ -146,18 +262,49 @@ if ($capabilities.Count -ne 1 -or $capabilities[0] -ne "runFullTrust") {
   throw "Unexpected AppX capability set: $($capabilities -join ', ')"
 }
 
-$appRoot = Join-Path $extractedPackage "app"
-$mainExecutable = Join-Path $appRoot "CausalPilot AI.exe"
+$archiveExecutablePath = Convert-ManifestPathToArchivePath $applicationExecutable
+$mainExecutable = [System.IO.Path]::GetFullPath(
+  (Join-Path $extractedPackage $archiveExecutablePath)
+)
+if (-not $mainExecutable.StartsWith(
+  $extractedPackage + [System.IO.Path]::DirectorySeparatorChar,
+  [System.StringComparison]::OrdinalIgnoreCase
+)) {
+  throw "AppxManifest.xml Application/Executable resolved outside the extracted package."
+}
+$appRoot = Split-Path -Parent $mainExecutable
 $sidecarExecutable = Join-Path $appRoot "resources/engine/causalpilot-engine.exe"
 $appAsar = Join-Path $appRoot "resources/app.asar"
 $electronLicense = Join-Path $appRoot "LICENSE.electron.txt"
 $chromiumLicense = Join-Path $appRoot "LICENSES.chromium.html"
+$testedAppRoot = Join-Path $projectRoot "release/win-unpacked"
+$testedMainExecutable = Join-Path $testedAppRoot "CausalPilot AI.exe"
+$testedSidecarExecutable = Join-Path $testedAppRoot "resources/engine/causalpilot-engine.exe"
+$testedAppAsar = Join-Path $testedAppRoot "resources/app.asar"
 
 Assert-PortableExecutable -Path $mainExecutable -Label "packaged Electron executable"
 Assert-PortableExecutable -Path $sidecarExecutable -Label "packaged Windows sidecar"
 Assert-File -Path $appAsar -Label "app.asar"
 Assert-File -Path $electronLicense -Label "Electron license notice"
 Assert-File -Path $chromiumLicense -Label "Chromium license notice"
+Assert-PortableExecutable -Path $testedMainExecutable -Label "tested unpacked Electron executable"
+Assert-PortableExecutable -Path $testedSidecarExecutable -Label "tested unpacked Windows sidecar"
+Assert-File -Path $testedAppAsar -Label "tested unpacked app.asar"
+
+$appxAssets = [ordered]@{}
+foreach ($asset in @(
+  [ordered]@{ name = "StoreLogo.png"; width = 50; height = 50 },
+  [ordered]@{ name = "Square44x44Logo.png"; width = 44; height = 44 },
+  [ordered]@{ name = "Square150x150Logo.png"; width = 150; height = 150 },
+  [ordered]@{ name = "Wide310x150Logo.png"; width = 310; height = 150 }
+)) {
+  $appxAssets[$asset.name] = Assert-PackagedAppxAsset `
+    -FileName $asset.name `
+    -ExpectedWidth $asset.width `
+    -ExpectedHeight $asset.height `
+    -PackageRoot $extractedPackage `
+    -SourceRoot $projectRoot
+}
 
 $sidecarVersion = (Get-Item -LiteralPath $sidecarExecutable).VersionInfo
 if ($sidecarVersion.CompanyName -notlike "*LAI ZEYU*") {
@@ -175,11 +322,22 @@ if ($LASTEXITCODE -ne 0) {
 $packagedMetadataPath = Join-Path $extractedAsar "package.json"
 Assert-File -Path $packagedMetadataPath -Label "packaged package.json"
 $packagedMetadata = Get-Content -LiteralPath $packagedMetadataPath -Raw | ConvertFrom-Json
+$sourceMetadata = Get-Content -LiteralPath (Join-Path $projectRoot "package.json") -Raw | ConvertFrom-Json
 Assert-Equal "Packaged author" ([string]$packagedMetadata.author) "LAI ZEYU (来泽宇)"
+Assert-Equal "Packaged application version" ([string]$packagedMetadata.version) ([string]$sourceMetadata.version)
 
 $projectNotices = @("AUTHORS.md", "LICENSE", "NOTICE.md", "THIRD_PARTY_NOTICES.md")
 foreach ($notice in $projectNotices) {
   Assert-File -Path (Join-Path $extractedAsar $notice) -Label "packaged project notice $notice"
+}
+
+$sourceMaps = @(
+  Get-ChildItem -LiteralPath $extractedAsar -Filter "*.map" -File -Recurse |
+    ForEach-Object { Get-RelativePortablePath -BasePath $extractedAsar -Path $_.FullName } |
+    Sort-Object -Unique
+)
+if ($sourceMaps.Count -gt 0) {
+  throw "Store app.asar contains source maps: $($sourceMaps -join ', ')"
 }
 
 $sensitiveFileMatches = @(
@@ -237,6 +395,13 @@ $packageFile = Get-Item -LiteralPath $resolvedAppx
 $packageHash = (Get-FileHash -LiteralPath $resolvedAppx -Algorithm SHA256).Hash.ToLowerInvariant()
 $mainHash = (Get-FileHash -LiteralPath $mainExecutable -Algorithm SHA256).Hash.ToLowerInvariant()
 $sidecarHash = (Get-FileHash -LiteralPath $sidecarExecutable -Algorithm SHA256).Hash.ToLowerInvariant()
+$appAsarHash = (Get-FileHash -LiteralPath $appAsar -Algorithm SHA256).Hash.ToLowerInvariant()
+$testedMainHash = (Get-FileHash -LiteralPath $testedMainExecutable -Algorithm SHA256).Hash.ToLowerInvariant()
+$testedSidecarHash = (Get-FileHash -LiteralPath $testedSidecarExecutable -Algorithm SHA256).Hash.ToLowerInvariant()
+$testedAppAsarHash = (Get-FileHash -LiteralPath $testedAppAsar -Algorithm SHA256).Hash.ToLowerInvariant()
+Assert-Equal "AppX/unpacked main executable SHA-256" $mainHash $testedMainHash
+Assert-Equal "AppX/unpacked sidecar SHA-256" $sidecarHash $testedSidecarHash
+Assert-Equal "AppX/unpacked app.asar SHA-256" $appAsarHash $testedAppAsarHash
 $authenticodeStatus = try {
   (Get-AuthenticodeSignature -LiteralPath $resolvedAppx).Status.ToString()
 } catch {
@@ -260,6 +425,8 @@ $report = [ordered]@{
     displayName = $manifestDisplayName
     publisherDisplayName = $manifestPublisherDisplayName
     applicationId = $applicationId
+    applicationExecutable = $applicationExecutable
+    archiveExecutablePath = Get-RelativePortablePath -BasePath $extractedPackage -Path $mainExecutable
     targetDeviceFamily = [ordered]@{
       name = $targetName
       minVersion = $targetMinVersion
@@ -268,13 +435,22 @@ $report = [ordered]@{
     capabilities = $capabilities
   }
   payload = [ordered]@{
+    applicationVersion = [string]$packagedMetadata.version
     mainExecutableSha256 = $mainHash
     sidecarExecutableSha256 = $sidecarHash
+    appAsarSha256 = $appAsarHash
     sidecarCompanyName = $sidecarVersion.CompanyName
     appAsarPresent = $true
     electronLicensePresent = $true
     chromiumLicensePresent = $true
     projectNotices = $projectNotices
+    sourceMapsPresent = $false
+    appxAssets = $appxAssets
+    matchesTestedUnpackedBuild = [ordered]@{
+      mainExecutable = $true
+      sidecarExecutable = $true
+      appAsar = $true
+    }
   }
   secretScan = [ordered]@{
     status = "passed"

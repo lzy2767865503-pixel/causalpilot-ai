@@ -1,9 +1,11 @@
 # Microsoft Store Windows screenshot plan
 
 **Store product:** CausalPilot AI by LAI ZEYU  
-**Installed application:** CausalPilot AI 0.1.0  
+**Public preview display name:** CausalPilot AI 0.1.0
+
+**Planned Store AppX display name:** CausalPilot AI by LAI ZEYU — verify in the installed final package
 **Author shown in the product:** LAI ZEYU (来泽宇)  
-**Status:** Capture plan only; existing macOS/browser images are not Windows Store evidence
+**Status:** Final Store capture plan. Four tagged Windows preview screenshots are release evidence only, not final Store AppX screenshots; macOS/browser images are not Windows Store evidence.
 
 ## Capture specification
 
@@ -16,7 +18,7 @@
 - Do not show unimplemented modules as working.
 - Preserve the capture machine/version, package hash, capture command/tool, and image SHA-256 in the Windows release record.
 
-## Required order and captions
+## Recommended four-image baseline and captions
 
 ### 01 — Overview
 
@@ -42,21 +44,25 @@ Caption (135 characters):
 
 > Review effect size, a 95% confidence interval, sample sizes, and practical business relevance together in one evidence-oriented result.
 
-### 04 — Diagnostics
+### 04 — Evidence reports and export
 
-File: `04-diagnostics-windows-1920x1080.png`
-
-Caption (131 characters):
-
-> Inspect sample-ratio mismatch, missingness, sparse-data warnings, and other quality checks before using causal conclusion language.
-
-### 05 — Evidence export or Reports
-
-File: `05-evidence-export-windows-1920x1080.png`
+File: `04-evidence-reports-windows-1920x1080.png`
 
 Caption (135 characters):
 
 > Export aggregate JSON and static HTML evidence locally with method metadata, diagnostics, limitations, and reproducibility identifiers.
+
+The four-image baseline matches the automated tagged-package capture route: Overview, Import/mapping, Results with visible diagnostics, and Reports/export. Microsoft requires at least one Desktop screenshot and recommends four or more; the final listing should use these four only after they have been recaptured from the exact installed Store candidate.
+
+## Optional additional images
+
+### 05 — Dedicated diagnostics detail
+
+File: `05-diagnostics-windows-1920x1080.png`
+
+Caption (131 characters):
+
+> Inspect sample-ratio mismatch, missingness, sparse-data warnings, and other quality checks before using causal conclusion language.
 
 ### 06 — About and authorship (optional sixth)
 

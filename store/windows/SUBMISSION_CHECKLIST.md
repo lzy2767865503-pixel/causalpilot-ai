@@ -6,15 +6,15 @@
 
 ## 1. Product and account identity
 
-- [ ] Active Microsoft Partner Center developer account verified
-- [ ] `CausalPilot AI by LAI ZEYU` reserved, or the exact approved alternative recorded
-- [ ] Exact Package/Identity/Name copied from Partner Center
-- [ ] Exact Publisher copied from Partner Center
-- [ ] Publisher display name verified
+- [x] Active Microsoft Partner Center developer account reached and product reservation completed
+- [x] `CausalPilot AI by LAI ZEYU` reserved
+- [x] Exact Package/Identity/Name copied from Partner Center: `LAIZEYU.CausalPilotAIbyLAIZEYU`
+- [x] Exact Publisher copied from Partner Center: `CN=A5F91D0A-30C6-48EE-944F-B767FA872BE8`
+- [x] Publisher display name verified: `LAI ZEYU`
 - [ ] Package identity values provided to the Windows build without transcription changes
-- [ ] No identifier from another Microsoft Store product reused
+- [x] CausalPilot-specific Store ID `9NXZ3MJFFGFG` and PFN `LAIZEYU.CausalPilotAIbyLAIZEYU_jex0hdpdrk7qw` recorded; no identifier from another Store product used
 
-Current state: the full name was observed as available but is **PENDING_NAME_RESERVATION**; package identity remains **PENDING_PARTNER_CENTER_IDENTITY**.
+Current state: the product is `In draft`; reservation and identity capture are complete. The exact values are preserved in `PARTNER_CENTER_IDENTITY.md`. Build binding and final manifest inspection remain open, so **PENDING_FINAL_STORE_APPX** is still a hard gate.
 
 ## 2. Source and licence
 
@@ -85,6 +85,7 @@ Current state: a reviewed public tagged GitHub Windows preview exists, but WACK,
 ## 6. Store metadata and public pages
 
 - [ ] English listing copy reviewed against the exact package
+- [x] English text fields fit current documented limits: description 2,646/10,000 characters, short description 138/1,000 characters, 12/20 features, seven keywords, and copyright 155/200 characters
 - [ ] At least four final Windows screenshots captured and hashed
 - [x] Four 1366 × 768 tagged packaged Windows screenshots captured in run `33409332005`; these are not final Store AppX screenshots
 - [ ] 300 × 300 Store tile inspected
@@ -100,7 +101,7 @@ Current state: a reviewed public tagged GitHub Windows preview exists, but WACK,
 - [ ] “Tested accessible” remains unchecked unless substantiated
 - [ ] Price, markets, discoverability, and release hold intentionally chosen
 
-Current state: public metadata/support foundations exist, the public GitHub preview is available at `https://github.com/lzy2767865503-pixel/causalpilot-ai/releases/tag/v0.1.0`, and four tagged-package screenshots are preserved. The English listing still requires review against the final Store AppX; final AppX screenshots, Store tile review, IARC output, pricing/markets/release choices, and Partner Center completion remain pending.
+Current state: public metadata/support foundations exist, the public GitHub preview is available at `https://github.com/lzy2767865503-pixel/causalpilot-ai/releases/tag/v0.1.0`, the English text fields pass current limit checks, and four tagged-package screenshots are preserved. Exact wording/behavior review against the final Store AppX, final AppX screenshots, Store tile review, IARC output, pricing/markets/release choices, and Partner Center section completion remain pending.
 
 ## 7. Partner Center upload and certification
 

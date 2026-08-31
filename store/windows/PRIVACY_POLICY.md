@@ -64,7 +64,7 @@ LAI ZEYU does not sell data accessed through CausalPilot AI 0.1.0. Because the a
 
 ## User choices
 
-Users control which CSV is selected and whether an evidence file is exported. Closing the application ends the active local session. Users can delete exported evidence using Windows File Explorer and can uninstall the application through Windows Settings or the Microsoft Store.
+Users control which CSV is selected and whether an evidence file is exported. Closing the application ends the active local session. Users can delete exported evidence using Windows File Explorer and can uninstall the application through Windows Settings. If a Microsoft Store edition is later published, Store management surfaces may also be available; this policy does not claim that the app is currently available in Microsoft Store.
 
 ## Changes
 

@@ -75,6 +75,8 @@ jobs:
           npm run check:windows-config
       - name: Build exact Store AppX candidate
         run: npm run package:win:store
+      - name: Inspect packaged Windows PE architecture and security flags
+        run: npm run check:windows-runtime
       - name: Exercise final native sidecar and packaged Windows workflow
         run: |
           npm run test:sidecar
@@ -97,6 +99,7 @@ jobs:
           path: |
             release/*.appx
             release/store-evidence/**
+            release/windows-runtime-evidence/**
             design/qa/packaged-e2e-report.json
             design/qa/packaged-local-engine-result.png
             design/qa/windows-store/*.png

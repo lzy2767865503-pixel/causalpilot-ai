@@ -1,6 +1,6 @@
 # Microsoft Store requirements used for this submission kit
 
-**Checked:** 2026-08-31  
+**Checked:** 2026-09-01
 **Applies to:** packaged Windows desktop submission (`.appx`, `.msix`, or related bundle/upload format)  
 **Product owner:** LAI ZEYU (来泽宇)
 
@@ -46,7 +46,9 @@ Recommended initial choices for 0.1.0, subject to the owner’s commercial decis
 
 ## Store listing fields
 
-The description is required and accepts up to 10,000 plain-text characters. One screenshot is required; Microsoft recommends four or more. Up to 20 product features are allowed, with 200 characters per feature. “What’s new” accepts up to 1,500 characters and should be left blank for the first submission. Keywords allow up to seven entries, 40 characters each, and no more than 21 distinct words in total. Copyright information accepts 200 characters and “Developed by” accepts 255.
+The description is required and accepts up to 10,000 plain-text characters. The optional short description accepts up to 1,000 characters, and Microsoft recommends keeping it below 270 because some views truncate beyond that point. One screenshot is required; Microsoft recommends four or more. Up to 20 product features are allowed, with 200 characters per feature. “What’s new” accepts up to 1,500 characters and should be left blank for the first submission. Keywords allow up to seven entries, 40 characters each, and no more than 21 distinct words in total. Copyright information accepts 200 characters and “Developed by” accepts 255.
+
+Microsoft also recommends that the Store product name and the package manifest display name match to avoid customer confusion. The CausalPilot Store workflow therefore defaults both to the reserved `CausalPilot AI by LAI ZEYU`; the final manifest and installed label must be inspected rather than inferred from the direct-download NSIS application name.
 
 - [Add and edit Store listing information](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/add-and-edit-store-listing-info)
 - [Add keywords, copyright, licence terms, and developer information](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/add-additional-information)

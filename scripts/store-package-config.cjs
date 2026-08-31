@@ -90,6 +90,7 @@ function createStoreConfig(environment = process.env, platform = process.platfor
 
   return {
     ...packageMetadata.build,
+    files: [...packageMetadata.build.files, "!**/*.map"],
     win: {
       ...packageMetadata.build.win,
       target: ["appx"],
@@ -120,4 +121,3 @@ module.exports = {
   validateIdentityName,
   validateStoreVersion,
 };
-

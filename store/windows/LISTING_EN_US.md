@@ -1,10 +1,12 @@
 # Microsoft Store listing — English (United States)
 
 **Store product:** CausalPilot AI by LAI ZEYU  
-**Installed application:** CausalPilot AI  
+**Public GitHub preview display name:** CausalPilot AI
+
+**Planned Store AppX display name:** CausalPilot AI by LAI ZEYU — verify in the final manifest and installed package
 **Version:** 0.1.0  
 **Developed by:** LAI ZEYU (来泽宇)  
-**Status:** Copy prepared; do not publish until all `PENDING_` fields and release gates are closed
+**Status:** Text fields are copy-ready; do not submit until the final Store AppX, screenshot, questionnaire, and Partner Center gates are closed
 
 ## Product name
 
@@ -87,7 +89,7 @@ LAI ZEYU (来泽宇)
 
 MIT License. Copyright © 2026 LAI ZEYU (来泽宇).
 
-Preferred final field after the repository is public:
+Preferred final field:
 
 https://github.com/lzy2767865503-pixel/causalpilot-ai/blob/main/LICENSE
 

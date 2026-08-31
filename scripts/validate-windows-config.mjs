@@ -62,6 +62,9 @@ if (
 if (config.appx.capabilities.join(",") !== "runFullTrust") {
   throw new Error("The Store package must declare only the required runFullTrust capability.");
 }
+if (!config.files.includes("!**/*.map")) {
+  throw new Error("The Store package must exclude source maps from the final app.asar.");
+}
 
 const generatedManifest = await readFile(config.appx.customManifestPath, "utf8");
 if (!generatedManifest.includes('Version="1.0.0.0"')) {
@@ -76,6 +79,7 @@ for (const [fileName, expected] of Object.entries({
   "StoreLogo.png": [50, 50],
   "Square44x44Logo.png": [44, 44],
   "Square150x150Logo.png": [150, 150],
+  "Wide310x150Logo.png": [310, 150],
 })) {
   const image = await readFile(path.join(projectRoot, "build", "appx", fileName));
   if (image.toString("ascii", 1, 4) !== "PNG") {
@@ -112,10 +116,10 @@ const report = {
     maxVersionTested: config.appx.maxVersionTested,
   },
   capabilities: config.appx.capabilities,
+  sourceMapsExcluded: true,
   appxAssetDimensions: dimensions,
   validationBoundary:
     "Configuration-only validation on this host; no Windows executable, AppX, WACK result, install result, or Store submission was produced.",
 };
 
 process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
-

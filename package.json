@@ -19,6 +19,7 @@
     "test:engine": "node scripts/test-engine.mjs",
     "test:sidecar": "node scripts/sidecar-smoke.mjs",
     "check:windows-config": "node scripts/validate-windows-config.mjs",
+    "check:windows-runtime": "node scripts/inspect-windows-runtime.mjs",
     "check": "npm run test && npm run build",
     "qa:visual": "node scripts/capture-ui.mjs",
     "qa:packaged": "node scripts/packaged-e2e.mjs",

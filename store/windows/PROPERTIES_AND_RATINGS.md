@@ -1,17 +1,21 @@
 # Partner Center properties, declarations, and age-rating answer sheet
 
 **Store product:** CausalPilot AI by LAI ZEYU  
-**Installed application:** CausalPilot AI 0.1.0 for Windows  
+**Public preview application:** CausalPilot AI 0.1.0 for Windows
+
+**Planned Store AppX display name:** CausalPilot AI by LAI ZEYU — verify against the final manifest
 **Accountable owner:** LAI ZEYU (来泽宇)  
 **Status:** Proposed answers based on the current source; re-check against the exact uploaded package and live questionnaire
 
 ## Identity and device family
 
-- Product-name candidate: `CausalPilot AI by LAI ZEYU`
-- Name reservation state: `PENDING_NAME_RESERVATION` — observed available, not yet reserved
-- Package identity name: `PENDING_PARTNER_CENTER_IDENTITY`
-- Publisher: `PENDING_PARTNER_CENTER_IDENTITY`
-- Publisher display name: `LAI ZEYU` (observed on the current Partner Center account; re-check at submission)
+- Reserved product name: `CausalPilot AI by LAI ZEYU` — verified 2026-09-01
+- Microsoft Store ID: `9NXZ3MJFFGFG`
+- Package identity name: `LAIZEYU.CausalPilotAIbyLAIZEYU`
+- Publisher: `CN=A5F91D0A-30C6-48EE-944F-B767FA872BE8`
+- Publisher display name: `LAI ZEYU`
+- Package family name: `LAIZEYU.CausalPilotAIbyLAIZEYU_jex0hdpdrk7qw`
+- Partner Center product state at identity capture: `In draft`
 - Device family: Windows.Desktop
 - Architecture: x64 only
 - Planned minimum OS: Windows 10 version 1809 (`10.0.17763.0`)

@@ -1,21 +1,24 @@
 # CausalPilot AI — Microsoft Store submission kit
 
 **Product author and accountable owner:** LAI ZEYU (来泽宇)  
-**Prepared for:** Store candidate `CausalPilot AI by LAI ZEYU`; installed product CausalPilot AI 0.1.0, Windows x64  
+**Prepared for:** Reserved Store product `CausalPilot AI by LAI ZEYU`; public-preview installed product `CausalPilot AI` 0.1.0, Windows x64
 **Primary listing language:** English (United States)  
-**Kit status:** Public source and reviewed GitHub Windows x64 preview verified; Store name reservation, package identity, final Store AppX, submission, certification, and Microsoft Store availability remain gated
+**Kit status:** Public source, reviewed GitHub Windows x64 preview, reserved Store name, and CausalPilot-specific Partner Center identity verified; final Store AppX, upload, certification, and Microsoft Store availability remain gated
 
 This directory contains evidence-bounded Microsoft Store copy and submission guidance for the Windows edition of CausalPilot AI. A Windows x64 preview is publicly available on GitHub, but this kit does not claim that a package has been uploaded to Partner Center, certified, published, or made available through Microsoft Store.
 
 ## Intended Store route
 
-Use the packaged desktop-app route with an AppX/MSIX-family upload, not the unpackaged EXE/MSI URL route. The planned Store name is `CausalPilot AI by LAI ZEYU`, while the installed app displays `CausalPilot AI`. The full Store-name candidate was observed as available but has not yet been reserved. The planned package is x64 `Windows.Desktop`; its final identity and publisher must be copied exactly from the product identity assigned in Partner Center after reservation and before the Store package is built.
+Use the packaged desktop-app route with an AppX/MSIX-family upload, not the unpackaged EXE/MSI URL route. `CausalPilot AI by LAI ZEYU` was reserved on 2026-09-01, and the exact CausalPilot-only Store identity is recorded in `PARTNER_CENTER_IDENTITY.md`. The public GitHub preview installs as `CausalPilot AI`; the Store workflow currently plans the reserved name as the AppX manifest display name so the Store listing and installed Store label remain aligned. The final AppX manifest and installed label must still be inspected before the reviewer notes or listing are submitted.
+
+The planned package is x64 `Windows.Desktop`. Its Store-assigned values are Package/Identity/Name `LAIZEYU.CausalPilotAIbyLAIZEYU`, Publisher `CN=A5F91D0A-30C6-48EE-944F-B767FA872BE8`, PublisherDisplayName `LAI ZEYU`, and Store ID `9NXZ3MJFFGFG`. These values are product metadata, not evidence that a Store package has been built or uploaded.
 
 Do not upload a locally generated placeholder-identity package. Do not call an upload, package-validation result, or `In certification` state a public release. Public availability is established only after the submission is certified, published, shown as `In the Store`, and independently opened from its public Store listing.
 
 ## Files
 
 - `OFFICIAL_REQUIREMENTS.md` — current official Microsoft requirements and source links.
+- `PARTNER_CENTER_IDENTITY.md` — verified reserved name and exact CausalPilot Store identity values.
 - `LISTING_EN_US.md` — ready-to-paste English listing fields.
 - `LISTING_ZH_CN.md` — optional Chinese listing that clearly states the app UI is English.
 - `PRIVACY_POLICY.md` — publicly accessible Windows 0.1.0 privacy policy.
@@ -25,6 +28,19 @@ Do not upload a locally generated placeholder-identity package. Do not call an u
 - `SCREENSHOT_PLAN.md` — exact Windows screenshot order, captions, and acceptance checks.
 - `SUBMISSION_CHECKLIST.md` — go/no-go gates from package identity through public-listing verification.
 - `assets/` — Store logo candidates only. Four preserved screenshots from the tagged Windows package exist under `evidence/releases/0.1.0/windows/v0.1.0/`; they are not final Store AppX screenshots.
+
+## Paste readiness
+
+| Submission material | Current readiness | Required final check |
+|---|---|---|
+| Reserved product name and CausalPilot identity | Verified and build-ready | Bind the exact values in `PARTNER_CENTER_IDENTITY.md`; inspect the generated manifest |
+| English description, short description, features, keywords, copyright, Developed by, and MIT licence URL | Copy-ready | Re-read against the exact final AppX before submission |
+| Privacy answer, privacy policy, website, and support URL | Copy-ready; all public URLs returned HTTP 200 without authentication on 2026-09-01 | Re-open the URLs immediately before submission |
+| Category and non-generative-AI declarations | Answer sheet ready | Match the live Partner Center wording and final package behavior |
+| IARC questionnaire | Draft answers ready | Complete the live questionnaire and preserve the generated rating/GRID |
+| Reviewer notes | Behavioral draft ready and below 2,000 characters | Confirm the installed display label, manifest target/version, and every review step against the exact AppX |
+| Screenshot captions and order | Plan ready | Capture from the exact installed, hashed Store candidate; existing tagged preview images are not final Store images |
+| Store tile/logo | Candidate files and hashes ready | Inspect rendering in Partner Center and compare with the final package icons |
 
 ## Current truthful boundary
 
@@ -49,8 +65,6 @@ The public project, MIT licence, authorship notices, privacy policy, support pag
 
 The remaining `PENDING_` entries below are deliberate hard gates, not publishable claims:
 
-- `PENDING_NAME_RESERVATION`
-- `PENDING_PARTNER_CENTER_IDENTITY`
 - `PENDING_FINAL_STORE_APPX`
 - `PENDING_PARTNER_CENTER_UPLOAD`
 - `PENDING_STORE_CERTIFICATION`

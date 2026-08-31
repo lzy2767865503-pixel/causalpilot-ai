@@ -1,8 +1,8 @@
 # Notes for certification
 
-**Ready-to-paste draft; keep under Partner Center’s 2,000-character limit.**
+**Behavioral draft; currently under Partner Center’s 2,000-character limit. Re-check every package-specific statement against the final AppX before pasting.**
 
-The Store product “CausalPilot AI by LAI ZEYU” installs as “CausalPilot AI.” Version 0.1.0 is an English-language, offline-first desktop workbench for declared randomized two-arm experiments. No account, credential, subscription, payment, advertising, cloud analysis service, or network connection is required after installation.
+The Store listing is “CausalPilot AI by LAI ZEYU.” The in-app About page identifies the product as “CausalPilot AI.” Version 0.1.0 is an English-language, offline-first workbench for declared randomized two-arm experiments. It requires no account, credential, payment, advertising, or cloud analysis service. Its analysis workflow works without a network connection after installation.
 
 Fast review path:
 1. Launch CausalPilot AI.
@@ -18,11 +18,11 @@ Despite “AI” in the product name, version 0.1.0 contains no runtime generati
 
 The app is for aggregate experiment analysis. It rejects the structured individual-employment-decision target and must not be used to rank or decide hiring, firing, promotion, compensation, performance, or employee risk.
 
-No special hardware, driver, service, or login is required. The submitted package targets Windows.Desktop x64 and the minimum OS shown in its final manifest.
+No special hardware, driver, service, or login is required. The final inspected package must target Windows.Desktop x64; its manifest supplies the minimum OS.
 
 ## Before pasting
 
 - Confirm this text remains below 2,000 characters in Partner Center.
-- Replace “submitted package” claims if the final package target differs.
+- Confirm the installed Start-menu/display label, package version, architecture, device family, and minimum OS against the final AppX manifest and installation evidence.
 - If reviewer testing finds any difference, update the notes to the exact package behavior.
 - Do not attach real user, customer, candidate, or employee data.
