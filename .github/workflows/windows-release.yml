@@ -54,6 +54,9 @@ jobs:
         run: npm run build
       - name: Create final NSIS, ZIP, and unpacked Windows distributions
         run: npm run package:win:artifacts
+      - name: Install, exercise, and uninstall the NSIS distribution
+        shell: pwsh
+        run: ./scripts/test-windows-installer.ps1
       - name: Exercise packaged import, engine, result, and evidence export
         run: npm run qa:packaged
       - name: Capture four packaged Windows Store screenshots
@@ -96,6 +99,7 @@ jobs:
             design/qa/packaged-local-engine-result.png
             design/qa/windows-store/*.png
             design/qa/windows-store/windows-store-capture-report.json
+            release/windows-installer-evidence/**
           if-no-files-found: error
           retention-days: 30
 
